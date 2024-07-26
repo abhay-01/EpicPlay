@@ -1,38 +1,125 @@
-.App {
-  text-align: center;
+
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container {
+  display: flex;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* main {
+  width: 100%;
+  padding: 20px;
+} */
+
+.main-content {
+  width: 100%;
+  margin-left: 250px; /* Adjust according to sidebar's width */
+  transition: margin-left 0.3s;
+  padding: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.sidebar {
+  background: #000;
+  color: #fff;
+  height: 100vh;
+  width: 250px; 
+  transition: width 0.3s; 
   display: flex;
   flex-direction: column;
+  position: fixed;
+}
+
+.sidebar.collapsed {
+  width: 50px; 
+}
+.sidebar.collapsed ~ .main-content {
+  margin-left: 50px; /* Adjust according to sidebar's collapsed width */
+}
+
+.top_section {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 20px 15px;
+  position: relative;
+  border-bottom: 1px solid white;
 }
 
-.App-link {
-  color: #61dafb;
+.logo {
+  font-size: 25px;
+  transition: opacity 0.3s; /* Smooth transition for logo visibility */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.bars {
+  display: flex;
+  font-size: 25px;
+  margin-left: auto; 
+  cursor: pointer; 
+}
+
+
+
+.link {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  padding: 5px 15px;
+  gap: 15px;
+  transition: all 0.5s;
+}
+
+.link:hover {
+  background: lightskyblue;
+  color: #000;
+}
+
+.active {
+  background: lightskyblue;
+  color: #000;
+}
+
+.icon, .link_text {
+  font-size: 18px;
+}
+
+.app-container {
+  display: flex;
+}
+
+.explore {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  margin: 10px 0;
+  transition: all 0.3s; /* Transition for smooth width and visibility change */
+  background-color: #292626;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.explore.expanded {
+  width: 130px;
+  margin-left: 30px;
+
+}
+
+.explore.collapsed {
+  width: 50px; /* Just enough to show the icon */
+  justify-content: center; /* Center the icon */
+  margin-left: 0;
+  padding: 10px 0; /* Center the icon vertically */
+}
+.explore .icon {
+  font-size: 18px; 
+  margin-right: 10px;  
+} 
+.explore .explore-text {
+  font-size: 18px;
+  color: #fff;
+  white-space: nowrap; 
+  overflow: hidden; 
+  transition: opacity 0.3s; 
 }

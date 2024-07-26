@@ -1,0 +1,162 @@
+/* .container {
+    height: 70px;
+    margin-left: 250px;
+    display: flex;
+    align-items: center; 
+    
+    background: rgb(50, 47, 47);
+    color:white;
+    width: calc(100%-250);
+    border: 2px solid red;
+
+    padding: 0 32px; 
+    box-sizing: border-box; 
+  }
+  
+  .search, .coin {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between items */
+  /* } */
+  
+  /* .search div, .coin div {
+    display: flex;
+    align-items: center;
+  }
+  
+  .lang {
+    display: flex;
+    align-items: center;
+  }
+  .search{
+    border: 0.001em solid white;
+    width:380px;
+    padding: 4px 13px;
+    border-radius:7px ;
+  }
+  .search-text{
+    padding:2px;
+}
+.lang{
+    padding-right: 32px;
+} */ 
+
+
+.container {
+    height: 70px;
+    margin-left: 250px;
+    display: flex;
+    align-items: center;
+    background: rgb(63, 62, 62);
+    color: white;
+    width: calc(100% - 250px); 
+  
+    padding: 0 32px;
+    box-sizing: border-box;
+    justify-content: space-between;
+  
+  .search {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    border: 0.1px solid rgb(245, 236, 236);
+    width: 380px;
+    padding: 4px 13px;
+    border-radius: 7px;
+    margin-right: auto; 
+  }
+  
+  .search-text {
+    padding: 2px;
+  }
+  
+  
+
+
+  .coin {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    margin-left: 20px;
+    margin-right: 20px; 
+  }
+  
+  .coin-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px; 
+    height: 25px; 
+    border-radius: 50%; 
+    background-color: #333; 
+    color: white; 
+    font-size: 14px; 
+    border: 2px solid white; 
+  }
+  
+  .total {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+  }
+  
+  .text {
+    font-size: 12px;
+  }
+  
+  .digits {
+    font-size: 16px; 
+    font-weight: bold; 
+  }
+  
+
+  
+  .lang {
+    position: relative;
+  }
+  
+  .lang-dropdown {
+    position: relative;
+  }
+  
+  .dropdown-button {
+    background: #070707;
+    border: none;
+    color: white;
+    padding: 4px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+  }
+  
+  .dropdown-content {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%; 
+    right: 0;
+    background-color: #333;
+    color: white;
+    min-width: 100px;
+    border-radius: 4px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1000;
+    margin-top: 4px; 
+  }
+  
+  .dropdown-content button {
+    background: none;
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  .dropdown-content button:hover {
+    background-color: #575757;
+  }
+  

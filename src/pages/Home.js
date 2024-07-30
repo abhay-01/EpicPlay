@@ -201,7 +201,7 @@ const Home = () => {
               Call Of Duty
             </div>
             <div className="text">
-              <span>21 Feb-6 Mar,08:00 PM</span>
+              <span>26 Feb-6 Mar,08:00 PM</span>
               <h2>Call Of Duty WarZone Mobile</h2>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

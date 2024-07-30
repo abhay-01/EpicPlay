@@ -2,7 +2,7 @@
     background: rgb(29, 24, 24);
     display:flex;
     color:white;
-    margin: 10px;
+    /* margin: 8px; */
     }
     .card{
         height:360px;
@@ -15,6 +15,8 @@
         display: flex;
         flex-direction: column;;
         margin: 0 0.7rem;;
+        margin-top: 20px;
+        margin-right: 20px;
     }
     .card:hover{
         

@@ -8,7 +8,7 @@ import { Server } from 'socket.io';
 import type {
   ClientToServer,
   ServerToClient,
-} from '@/common/types/socket.type';
+} from '../common/types/socket.type';
 
 import { SocketServer } from './SocketServer';
 

@@ -5,8 +5,8 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ToastContainer } from 'react-toastify';
 
-import GameProvider from '@/common/context/gameContext';
-import ModalManager from '@/modules/modal';
+import GameProvider from '../common/context/gameContext';
+import ModalManager from '../modules/modal/components/ModalManger';
 
 import 'react-toastify/dist/ReactToastify.min.css';
 

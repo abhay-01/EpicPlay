@@ -4,7 +4,7 @@ import { Server, Socket } from 'socket.io';
 import type {
   ClientToServer,
   ServerToClient,
-} from '@/common/types/socket.type';
+} from '../common/types/socket.type';
 
 type PlayerJoin = {
   socketId: string;

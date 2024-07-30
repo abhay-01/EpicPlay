@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { AiOutlineClose } from 'react-icons/ai';
 
-import Portal from '@/common/components/Portal';
+import Portal from '../../../common/components/Portal';
 
 import {
   bgAnimation,

@@ -2,8 +2,8 @@ import { FormEvent, useEffect, useState } from 'react';
 import React from 'react';
 import { useRouter } from 'next/router';
 
-import { useGame } from '@/common/hooks/useGame';
-import { socket } from '@/common/libs/socket';
+import { useGame } from '../../../common/hooks/useGame';
+import { socket } from '../../../common/libs/socket';
 
 const GameInputs = ({ name }: { name: string }) => {
   const { setAdmin } = useGame();

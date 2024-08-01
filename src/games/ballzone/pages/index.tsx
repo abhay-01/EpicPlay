@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
+import React from 'react';
 
-import Home from '@/modules/home';
-
+import Home from "../modules/home";
 const HomePage: NextPage = () => {
   return <Home />;
 };

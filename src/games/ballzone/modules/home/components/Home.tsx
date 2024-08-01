@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { toast } from 'react-toastify';
 
-import { DEFAULT_GAME } from '@/common/context/gameContext';
-import { useGame } from '@/common/hooks/useGame';
-import { usePeers } from '@/common/hooks/usePeers';
-import { socket } from '@/common/libs/socket';
-import Help from '@/modules/help';
-import { useModal } from '@/modules/modal';
+import { DEFAULT_GAME } from '../../../common/context/gameContext';
+import { useGame } from '../../../common/hooks/useGame';
+import { usePeers } from '../../../common/hooks/usePeers';
+import { socket } from '../../../common/libs/socket';
+import Help from '../../../modules/help';
+import { useModal } from '../../../modules/modal';
 
 import GameInputs from './GameInputs';
 import Header from './Header';

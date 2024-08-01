@@ -24,7 +24,7 @@ import React, {
     started: false,
     ball: {
       position: { x: REAL_BOARD_SIZE.width / 2, y: REAL_BOARD_SIZE.height / 2 },
-      velocityVector: { x: 0, y: 0 },
+      velocity: { x: 0, y: 0 },
     },
     results: false,
   };

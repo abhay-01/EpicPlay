@@ -161,7 +161,7 @@ export const useGame = () => {
           x: REAL_BOARD_SIZE.width / 2,
           y: REAL_BOARD_SIZE.height / 2,
         },
-        velocityVector: { x: 0, y: 0 },
+        velocity: { x: 0, y: 0 },
       },
       paused: false,
     }));
@@ -186,7 +186,7 @@ export const useGame = () => {
         setGame((prev) => ({
           ...prev,
           ball: {
-            velocityVector: { x: 0, y: 0 },
+            velocity: { x: 0, y: 0 },
             position: {
               x: REAL_BOARD_SIZE.width / 2,
               y: REAL_BOARD_SIZE.height / 2,

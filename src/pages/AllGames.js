@@ -10,7 +10,23 @@ import group from "../images/group.png";
 import "./Home.css";
 import { FaArrowRight } from "react-icons/fa";
 
+
 const AllGames = () => {
+
+  const startServer = ()=>{
+    // // fetch("http://localhost:3001/start-server")
+    // // .then(response => response.text())
+    // // .then(data => {
+    // //   console.log(data);
+    //   // Assuming the server starts successfully, redirect to the desired URL
+    // })
+    // .catch(error => {
+    //   console.error('Error:', error);
+    //   alert('Failed to start the server. Please try again.');
+    // });
+    window.open('http://localhost:3001', '_blank'); // Change to your server's URL
+
+};
   return(
     <div style = {{
     display: "flex",
@@ -19,7 +35,7 @@ const AllGames = () => {
     height: "100vh",
     marginLeft: "300px",
     }}>
-  <div className="card">
+  <div className="card" onClick={startServer}>
     <div className="image">
       <img src={img1} />
     </div>
@@ -63,7 +79,7 @@ const AllGames = () => {
     </div>
   </div>
 
-  <div className="card">
+  <div className="card" onClick={startServer}>
     <div className="image">
       <img src={img1} />
     </div>
@@ -107,7 +123,7 @@ const AllGames = () => {
     </div>
   </div>
 
-  <div className="card">
+  <div className="card" onClick={startServer}>
     <div className="image">
       <img src={img1} />
     </div>

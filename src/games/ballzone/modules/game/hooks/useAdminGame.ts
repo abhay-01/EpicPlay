@@ -74,11 +74,11 @@ export const useAdminGame = (
 
   const ball = useRef<Ball>({
     position: { x: 300, y: 300 },
-    velocityVector: { x: 0, y: 0 },
+    velocity: { x: 0, y: 0 },
   });
   const [ballState, setBallState] = useState<Ball>({
     position: { x: 0, y: 0 },
-    velocityVector: { x: 0, y: 0 },
+    velocity: { x: 0, y: 0 },
   });
 
   const { gameId } = useRouter().query;

@@ -3,9 +3,9 @@ import React from 'react';
 
 import { useRouter } from 'next/router';
 
-import { useGame } from '@/common/hooks/useGame';
-import { socket } from '@/common/libs/socket';
-import { useModal } from '@/modules/modal';
+import { useGame } from '../../../common/hooks/useGame';
+import { socket } from '../../../common/libs/socket';
+import { useModal } from '../../../modules/modal';
 
 const EnterName = () => {
   const { setAdmin } = useGame();

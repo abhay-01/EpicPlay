@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { toast } from 'react-toastify';
 import Peer from 'simple-peer';
 
-import { ICE_SERVERS } from '@/common/constants/iceServers';
-import { DEFAULT_GAME } from '@/common/context/gameContext';
-import { useGame } from '@/common/hooks/useGame';
-import { usePeers } from '@/common/hooks/usePeers';
-import { socket } from '@/common/libs/socket';
-import { StatusPeer } from '@/common/types/game.type';
-import { DataType, PlayerJoinLeftData } from '@/common/types/peer.type';
-import { Loader, Error } from '@/modules/game/modules/loader';
-import Menu from '@/modules/game/modules/menu';
-import { useModal } from '@/modules/modal';
+import { ICE_SERVERS } from '../../../common/constants/iceServer';
+import { DEFAULT_GAME } from '../../../common/context/gameContext';
+import { useGame } from '../../../common/hooks/useGame';
+import { usePeers } from '../../../common/hooks/usePeers';
+import { socket } from '../../../common/libs/socket';
+import { StatusPeer } from '../../../common/types/game.type';
+import { DataType, PlayerJoinLeftData } from '../../../common/types/peer.type';
+import { Loader, Error } from '../../../modules/game/modules/loader';
+import Menu from '../../../modules/game/modules/menu';
+import { useModal } from '../../../modules/modal';
 
 import { getName } from '../helpers/getName';
 
@@ -190,7 +190,7 @@ export const usePeersConnect = () => {
       return;
     }
 
-    const me = game.players.has(socket.id);
+    const me = game.players.has(socket.id?? ' ');
 
     if (me) setStatus(StatusPeer.CONNECTED);
   }, [game, setStatus]);

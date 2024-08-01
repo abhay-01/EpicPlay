@@ -1,5 +1,6 @@
-import { useGame } from '@/common/hooks/useGame';
-import { socket } from '@/common/libs/socket';
+import { useGame } from '../../../../../common/hooks/useGame';
+import { socket } from '../../../../../common/libs/socket';
+import React from 'react';
 
 const Results = () => {
   const {

@@ -19,39 +19,39 @@ import {
     const newBall = ball;
     const newPlayers = new Map(players);
   
-    const { velocityVector, position } = newBall;
+    const { velocity, position } = newBall;
   
     const decelerationX =
-      velocityVector.x > 4 || velocityVector.x < -4
+    velocity.x > 4 || velocity.x < -4
         ? MOVE_BALL.DECELERATION
         : MOVE_BALL.SMALL_DECELERATION;
   
-    if (velocityVector.x > 0) {
-      velocityVector.x = Math.max(velocityVector.x - decelerationX, 0);
-    } else if (velocityVector.x < 0) {
-      velocityVector.x = Math.min(velocityVector.x + decelerationX, 0);
+    if (velocity.x > 0) {
+      velocity.x = Math.max(velocity.x - decelerationX, 0);
+    } else if (velocity.x < 0) {
+      velocity.x = Math.min(velocity.x + decelerationX, 0);
     }
   
     const decelerationY =
-      velocityVector.y > 3 || velocityVector.y < -3
+    velocity.y > 3 || velocity.y < -3
         ? MOVE_BALL.DECELERATION
         : MOVE_BALL.SMALL_DECELERATION;
   
-    if (velocityVector.y > 0) {
-      velocityVector.y = Math.max(velocityVector.y - decelerationY, 0);
-    } else if (velocityVector.y < 0) {
-      velocityVector.y = Math.min(velocityVector.y + decelerationY, 0);
+    if (velocity.y > 0) {
+      velocity.y = Math.max(velocity.y - decelerationY, 0);
+    } else if (velocity.y < 0) {
+      velocity.y = Math.min(velocity.y + decelerationY, 0);
     }
   
-    newBall.velocityVector = velocityVector;
+    newBall.velocity = velocity;
   
     // eslint-disable-next-line prefer-const
     let [newPosition, multiplier] = makeBallPosition(
-      position.x + velocityVector.x,
-      position.y + velocityVector.y
+      position.x + velocity.x,
+      position.y + velocity.y
     );
-    newBall.velocityVector.x = velocityVector.x * multiplier.x;
-    newBall.velocityVector.y = velocityVector.y * multiplier.y;
+    newBall.velocity.x = velocity.x * multiplier.x;
+    newBall.velocity.y = velocity.y * multiplier.y;
   
     const COLLISION_DISTANCE = PLAYER_SIZE + BALL_SIZE;
   
@@ -71,7 +71,7 @@ import {
         const unitX = distanceX / length;
         const unitY = distanceY / length;
   
-        newBall.velocityVector = {
+        newBall.velocity = {
           x: unitX * 11,
           y: unitY * 11,
         };
@@ -89,13 +89,13 @@ import {
           MOVE.MAX_SPEED
         );
   
-        const vX = (velocityVector.x - unitX * playerSpeedX) / 10;
-        const vY = (velocityVector.y - unitY * playerSpeedY) / 10;
+        const vX = (velocity.x - unitX * playerSpeedX) / 10;
+        const vY = (velocity.y - unitY * playerSpeedY) / 10;
   
-        const newVX = velocityVector.x - vX;
-        const newVY = velocityVector.y - vY;
+        const newVX = velocity.x - vX;
+        const newVY = velocity.y - vY;
   
-        newBall.velocityVector = {
+        newBall.velocity = {
           x: newVX,
           y: newVY,
         };

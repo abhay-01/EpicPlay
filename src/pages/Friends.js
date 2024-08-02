@@ -2,6 +2,7 @@ import React from "react";
 import { data } from "../utils/Friends";
 import icon from "../assets/boy.png"
 const Friends = () => {
+
   return (
     <div className=" bg-[#171717] text-white  ">
       <div className="w-10/12">
@@ -23,6 +24,9 @@ const Friends = () => {
       </div>
     </div>
   );
+
+  return <div></div>;
+
 };
 
 export default Friends;

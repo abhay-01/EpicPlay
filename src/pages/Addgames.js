@@ -1,7 +1,9 @@
 import React from "react";
 
 const Addgames = () => {
-  return <div>Addgames</div>;
+  return <div>
+    
+  </div>;
 };
 
 export default Addgames;

@@ -1,6 +1,8 @@
 import React from "react";
 
 const Faqs = () => {
-  return <div>Faqs</div>;
+  return <div>
+    
+  </div>;
 };
 export default Faqs;

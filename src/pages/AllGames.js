@@ -24,7 +24,7 @@ const AllGames = () => {
     //   console.error('Error:', error);
     //   alert('Failed to start the server. Please try again.');
     // });
-    window.open('http://localhost:3001', '_blank'); // Change to your server's URL
+    window.open('http://localhost:3000', '_blank'); // Change to your server's URL
 
 };
   return(

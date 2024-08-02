@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { BiHelpCircle } from 'react-icons/bi';
 import { FiMenu } from 'react-icons/fi';
 
-import { PLAYER_SIZE } from '@/common/constants/settings';
-import { useGame } from '@/common/hooks/useGame';
-import Help from '@/modules/help';
-import { useModal } from '@/modules/modal';
+import { PLAYER_SIZE } from '../../../../../common/constants/settings';
+import { useGame } from '../../../../../common/hooks/useGame';
+import Help from '../../../../../modules/help';
+import { useModal } from '../../../../../modules/modal';
 
 import Menu from './Menu';
 

@@ -230,7 +230,7 @@ const Home = () => {
             </div>
             <div style={{ marginBottom: '10px' }}>
               <span>21 Feb-6 Mar,08:00 PM</span>
-              <h2 style={{ fontSize: '20px' }}>Valorant Combat</h2>
+              <h2 style={{ fontSize: '20px' }}>Valorant Combat </h2>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...</p>
             </div>
             <hr style={{ borderColor: '#555' }} />

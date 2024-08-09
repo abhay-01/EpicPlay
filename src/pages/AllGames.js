@@ -9,7 +9,6 @@ import trophy from "../images/trophy.png";
 import group from "../images/group.png";
 import "./Home.css";
 import { FaArrowRight } from "react-icons/fa";
-import io from "socket.io-client";
 
 
 const AllGames = () => {

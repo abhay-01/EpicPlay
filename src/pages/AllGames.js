@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import img1 from "../images/img1.jpeg";
 import img2 from "../images/img2.jpg";
 import img3 from "../images/img3.jpeg";
@@ -12,6 +12,18 @@ import { FaArrowRight } from "react-icons/fa";
 
 
 const AllGames = () => {
+  const startChessServer = () => {
+    fetch("http://localhost:3001/start-chess-server", { method: "POST" })
+      .then(response => response.text())
+      .then(data => {
+        console.log(data); // Handle success
+        window.open('http://localhost:3001', '_blank'); // Open chess game in a new tab
+      })
+      .catch(error => {
+        console.error('Error:', error); // Handle error
+        alert('Failed to start the server. Please try again.');
+      });
+  };
 
   const startServer = ()=>{
     // // fetch("http://localhost:3001/start-server")
@@ -35,7 +47,7 @@ const AllGames = () => {
     height: "100vh",
     marginLeft: "300px",
     }}>
-  <div className="card" onClick={startServer}>
+  <div className="card" onClick={startChessServer}>
     <div className="image">
       <img src={img1} />
     </div>

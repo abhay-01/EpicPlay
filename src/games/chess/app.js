@@ -4,6 +4,8 @@ const http = require('http');
 const {Chess} = require('chess.js');
 const path = require('path');
 const { title } = require('process');
+const { exec } = require('child_process');
+const { error } = require('console');
 
 
 const app = express();
@@ -13,17 +15,39 @@ const io = socket.listen(server); // attach socket.io to the server
 
 const chess = new Chess();
 
+const cors = require('cors');
+
+app.use(cors({
+  origin: 'http://localhost:3000', 
+}));
+
+
 let player = {};
-let currentPlayer = "W";
+let currentPlayer = "w";
 
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
+app.set("views", path.join(__dirname, "views"));
+
 
 app.get("/", (req, res) => {
     res.render("index" ,{title: "Chess Game"});
     }
 );
+
+
+app.post("/start-chess-serevr",(req,res)=>{
+    exec("npx nodemon src/games/chess/app.js", (error, stdout, stderr) => {
+        if (error) {
+          console.error(`exec error: ${error}`);
+          return;
+        }
+        console.log(`stdout: ${stdout}`);
+        console.error(`stderr: ${stderr}`);
+        res.send("Chess Server started");
+    })
+})
 
 
 
@@ -32,14 +56,14 @@ io.on("connection", (socket) => {
 
     if(!player.white){
         player.white = socket.id; //is line ka mtlb h k agr player white nhi h to usko white bna do 
-        socket.emit("palyerRole", "W"); 
+        socket.emit("playerRole", "w"); 
     }
     else if(!player.black){
         player.black = socket.id; //is line ka mtlb h k agr player black nhi h to usko black bna do
-        socket.emit("palyerRole", "B");
+        socket.emit("playerRole", "b");
     }
     else{
-        socket.emit("err", "Room is full");
+        socket.emit("spectatorRole");
     }
 
     socket.on("disconnect", () => {
@@ -68,6 +92,7 @@ io.on("connection", (socket) => {
 
         //agr move valid h to usko move kr do
         const move = chess.move(msg);
+        
         if(move){
             currentPlayer = chess.turn(); //agr move valid h to turn change kr do
             io.emit("move", msg); //sabko move bhej do

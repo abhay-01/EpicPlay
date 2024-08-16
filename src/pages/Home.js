@@ -12,289 +12,242 @@ import headerImage from "../images/headerImage.png";
 
 const Home = () => {
   return (
-    <div style={{ height: '100vh', overflowY: 'auto', backgroundColor: 'black', color: 'white' }}>
+    <div className="h-screen overflow-y-auto bg-black text-white">
       {/* Search Bar */}
-      <div style={{ padding: '20px', textAlign: 'center' }}>
+      <div className="p-5 text-center">
         <input
           type="text"
           placeholder="Search for games..."
-          style={{
-            width: '80%',
-            padding: '10px',
-            borderRadius: '5px',
-            border: '1px solid #ccc',
-            fontSize: '16px',
-          }}
+          className="w-4/5 p-2 rounded-md border border-gray-300 text-lg"
         />
       </div>
 
       {/* Header Image */}
-      <div style={{ width: '100%' }}>
-        <img src={headerImage} alt="Header Game" style={{ width: '100%', height: 'auto' }} />
+      <div className="w-full">
+        <img src={headerImage} alt="Header Game" className="w-full h-auto" />
       </div>
 
       {/* Upcoming Matches */}
-      <div style={{ padding: '20px' }}>
-        <div style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px',marginLeft:"60px" }}>Upcoming Matches</div>
-        <div style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between'
-        }}>
-          <div style={{
-            flex: '1 1 30%',
-            backgroundColor: '#333',
-            borderRadius: '10px',
-            marginBottom: '20px',
-            padding: '20px',
-            boxSizing: 'border-box',
-            color: 'white',
-            marginLeft: '20px'
-          }}>
-            <div style={{ marginBottom: '15px' }}>
-              <img src={img1} alt="Game 1" style={{ width: '100%', borderRadius: '10px' }} />
+      <div className="p-5">
+        <div className="text-2xl font-bold mb-5 ml-[55px]">
+          Upcoming Matches
+        </div>
+        <div className="grid grid-cols-3 gap-5">
+          <div className="bg-gray-800 rounded-lg p-5">
+            <div className="mb-4">
+              <img src={img1} alt="Game 1" className="w-full rounded-lg" />
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-              <img src={logo1} alt="Logo 1" style={{ width: '40px', height: '40px', marginRight: '10px' }} />
+            <div className="flex items-center mb-2">
+              <img src={logo1} alt="Logo 1" className="w-10 h-10 mr-2" />
               Call Of Duty
             </div>
-            <div style={{ marginBottom: '10px' }}>
+            <div className="mb-2">
               <span>21 Feb-6 Mar,08:00 PM</span>
-              <h2 style={{ fontSize: '20px' }}>Call Of Duty WarZone Mobile</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...</p>
+              <h2 className="text-xl">Call Of Duty WarZone Mobile</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor...
+              </p>
             </div>
-            <hr style={{ borderColor: '#555' }} />
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
-              <div style={{ textAlign: 'center' }}>
-                <span style={{ display: 'block', fontWeight: 'bold' }}>Win Price</span>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src={trophy} alt="Trophy" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
+            <hr className="border-gray-600" />
+            <div className="flex justify-between items-center mt-3">
+              <div className="text-center">
+                <span className="block font-bold">Win Price</span>
+                <div className="flex items-center justify-center">
+                  <img src={trophy} alt="Trophy" className="w-5 h-5 mr-1" />
                   <span>₹28k</span>
                 </div>
               </div>
-              <div style={{ textAlign: 'center' }}>
-                <span style={{ display: 'block', fontWeight: 'bold' }}>Player Slot</span>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src={group} alt="Group" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
+              <div className="text-center">
+                <span className="block font-bold">Player Slot</span>
+                <div className="flex items-center justify-center">
+                  <img src={group} alt="Group" className="w-5 h-5 mr-1" />
                   <span>4v4</span>
                 </div>
               </div>
-              <FaArrowRight size={20} className="arrow"/>
+              <FaArrowRight size={20} className="text-white" />
             </div>
           </div>
 
-          <div style={{
-            flex: '1 1 30%',
-            backgroundColor: '#333',
-            borderRadius: '10px',
-            marginBottom: '20px',
-            padding: '20px',
-            boxSizing: 'border-box',
-            color: 'white',
-            marginLeft: '20px'
-          }}>
-            <div style={{ marginBottom: '15px' }}>
-              <img src={img2} alt="Game 2" style={{ width: '100%', borderRadius: '10px' }} />
+          <div className="bg-gray-800 rounded-lg p-5">
+            <div className="mb-4">
+              <img src={img2} alt="Game 2" className="w-full rounded-lg" />
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-              <img src={logo2} alt="Logo 2" style={{ width: '40px', height: '40px', marginRight: '10px' }} />
+            <div className="flex items-center mb-2">
+              <img src={logo2} alt="Logo 2" className="w-10 h-10 mr-2" />
               Apex Of Legend
             </div>
-            <div style={{ marginBottom: '10px' }}>
+            <div className="mb-2">
               <span>21 Feb-6 Mar,08:00 PM</span>
-              <h2 style={{ fontSize: '20px' }}>Apex Of Legend Royal Battle</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...</p>
+              <h2 className="text-xl">Apex Of Legend Royal Battle</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor...
+              </p>
             </div>
-            <hr style={{ borderColor: '#555' }} />
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
-              <div style={{ textAlign: 'center' }}>
-                <span style={{ display: 'block', fontWeight: 'bold' }}>Win Price</span>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src={trophy} alt="Trophy" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
+            <hr className="border-gray-600" />
+            <div className="flex justify-between items-center mt-3">
+              <div className="text-center">
+                <span className="block font-bold">Win Price</span>
+                <div className="flex items-center justify-center">
+                  <img src={trophy} alt="Trophy" className="w-5 h-5 mr-1" />
                   <span>₹44k</span>
                 </div>
               </div>
-              <div style={{ textAlign: 'center' }}>
-                <span style={{ display: 'block', fontWeight: 'bold' }}>Player Slot</span>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src={group} alt="Group" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
+              <div className="text-center">
+                <span className="block font-bold">Player Slot</span>
+                <div className="flex items-center justify-center">
+                  <img src={group} alt="Group" className="w-5 h-5 mr-1" />
                   <span>4v4</span>
                 </div>
               </div>
-              <FaArrowRight size={20} className="arrow"/>
+              <FaArrowRight size={20} className="text-white" />
             </div>
           </div>
 
-          
-          <div style={{
-            flex: '1 1 30%',
-            backgroundColor: '#333',
-            borderRadius: '10px',
-            marginBottom: '20px',
-            padding: '20px',
-            boxSizing: 'border-box',
-            color: 'white',
-            marginLeft: '20px'
-          }}>
-            <div style={{ marginBottom: '15px' }}>
-              <img src={img3} alt="Game 3" style={{ width: '100%', borderRadius: '10px' }} />
+          <div className="bg-gray-800 rounded-lg p-5">
+            <div className="mb-4">
+              <img src={img3} alt="Game 3" className="w-full rounded-lg" />
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-              <img src={logo3} alt="Logo 3" style={{ width: '40px', height: '40px', marginRight: '10px' }} />
+            <div className="flex items-center mb-2">
+              <img src={logo3} alt="Logo 3" className="w-10 h-10 mr-2" />
               Valorant
             </div>
-            <div style={{ marginBottom: '10px' }}>
+            <div className="mb-2">
               <span>21 Feb-6 Mar,08:00 PM</span>
-              <h2 style={{ fontSize: '20px' }}>Valorant Multiplayer</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...</p>
+              <h2 className="text-xl">Valorant Multiplayer</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor...
+              </p>
             </div>
-            <hr style={{ borderColor: '#555' }} />
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
-              <div style={{ textAlign: 'center' }}>
-                <span style={{ display: 'block', fontWeight: 'bold' }}>Win Price</span>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src={trophy} alt="Trophy" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
+            <hr className="border-gray-600" />
+            <div className="flex justify-between items-center mt-3">
+              <div className="text-center">
+                <span className="block font-bold">Win Price</span>
+                <div className="flex items-center justify-center">
+                  <img src={trophy} alt="Trophy" className="w-5 h-5 mr-1" />
                   <span>₹29k</span>
                 </div>
               </div>
-              <div style={{ textAlign: 'center' }}>
-                <span style={{ display: 'block', fontWeight: 'bold' }}>Player Slot</span>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src={group} alt="Group" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
+              <div className="text-center">
+                <span className="block font-bold">Player Slot</span>
+                <div className="flex items-center justify-center">
+                  <img src={group} alt="Group" className="w-5 h-5 mr-1" />
                   <span>4v4</span>
                 </div>
               </div>
-              <FaArrowRight size={20} className="arrow"/>
+              <FaArrowRight size={20} className="text-white" />
             </div>
           </div>
 
-          
-          <div style={{
-            flex: '1 1 30%',
-            backgroundColor: '#333',
-            borderRadius: '10px',
-            marginBottom: '20px',
-            padding: '20px',
-            boxSizing: 'border-box',
-            color: 'white',
-            marginLeft: '20px'
-          }}>
-            <div style={{ marginBottom: '15px' }}>
-              <img src={img3} alt="Game 3" style={{ width: '100%', borderRadius: '10px' }} />
+          <div className="bg-gray-800 rounded-lg p-5">
+            <div className="mb-4">
+              <img src={img1} alt="Game 1" className="w-full rounded-lg" />
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-              <img src={logo3} alt="Logo 3" style={{ width: '40px', height: '40px', marginRight: '10px' }} />
-              Valorant
+            <div className="flex items-center mb-2">
+              <img src={logo1} alt="Logo 1" className="w-10 h-10 mr-2" />
+              Call Of Duty
             </div>
-            <div style={{ marginBottom: '10px' }}>
+            <div className="mb-2">
               <span>21 Feb-6 Mar,08:00 PM</span>
-              <h2 style={{ fontSize: '20px' }}>Valorant Multiplayer</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...</p>
+              <h2 className="text-xl">Call Of Duty WarZone Mobile</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor...
+              </p>
             </div>
-            <hr style={{ borderColor: '#555' }} />
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
-              <div style={{ textAlign: 'center' }}>
-                <span style={{ display: 'block', fontWeight: 'bold' }}>Win Price</span>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src={trophy} alt="Trophy" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
-                  <span>₹29k</span>
+            <hr className="border-gray-600" />
+            <div className="flex justify-between items-center mt-3">
+              <div className="text-center">
+                <span className="block font-bold">Win Price</span>
+                <div className="flex items-center justify-center">
+                  <img src={trophy} alt="Trophy" className="w-5 h-5 mr-1" />
+                  <span>₹28k</span>
                 </div>
               </div>
-              <div style={{ textAlign: 'center' }}>
-                <span style={{ display: 'block', fontWeight: 'bold' }}>Player Slot</span>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src={group} alt="Group" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
+              <div className="text-center">
+                <span className="block font-bold">Player Slot</span>
+                <div className="flex items-center justify-center">
+                  <img src={group} alt="Group" className="w-5 h-5 mr-1" />
                   <span>4v4</span>
                 </div>
               </div>
-              <FaArrowRight size={20} className="arrow"/>
-            </div>
-          </div>
-          
-          <div style={{
-            flex: '1 1 30%',
-            backgroundColor: '#333',
-            borderRadius: '10px',
-            marginBottom: '20px',
-            padding: '20px',
-            boxSizing: 'border-box',
-            color: 'white',
-            marginLeft: '20px'
-          }}>
-            <div style={{ marginBottom: '15px' }}>
-              <img src={img3} alt="Game 3" style={{ width: '100%', borderRadius: '10px' }} />
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-              <img src={logo3} alt="Logo 3" style={{ width: '40px', height: '40px', marginRight: '10px' }} />
-              Valorant
-            </div>
-            <div style={{ marginBottom: '10px' }}>
-              <span>21 Feb-6 Mar,08:00 PM</span>
-              <h2 style={{ fontSize: '20px' }}>Valorant Combat </h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...</p>
-            </div>
-            <hr style={{ borderColor: '#555' }} />
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
-              <div style={{ textAlign: 'center' }}>
-                <span style={{ display: 'block', fontWeight: 'bold' }}>Win Price</span>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src={trophy} alt="Trophy" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
-                  <span>₹29k</span>
-                </div>
-              </div>
-              <div style={{ textAlign: 'center' }}>
-                <span style={{ display: 'block', fontWeight: 'bold' }}>Player Slot</span>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src={group} alt="Group" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
-                  <span>4v4</span>
-                </div>
-              </div>
-              <FaArrowRight size={20} className="arrow"/>
+              <FaArrowRight size={20} className="text-white" />
             </div>
           </div>
 
-          <div style={{
-            flex: '1 1 30%',
-            backgroundColor: '#333',
-            borderRadius: '10px',
-            marginBottom: '20px',
-            padding: '20px',
-            boxSizing: 'border-box',
-            color: 'white',
-            marginLeft: '20px'
-          }}>
-            <div style={{ marginBottom: '15px' }}>
-              <img src={img3} alt="Game 3" style={{ width: '100%', borderRadius: '10px' }} />
+          <div className="bg-gray-800 rounded-lg p-5">
+            <div className="mb-4">
+              <img src={img2} alt="Game 2" className="w-full rounded-lg" />
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-              <img src={logo3} alt="Logo 3" style={{ width: '40px', height: '40px', marginRight: '10px' }} />
-              Valorant
+            <div className="flex items-center mb-2">
+              <img src={logo2} alt="Logo 2" className="w-10 h-10 mr-2" />
+              Apex Of Legend
             </div>
-            <div style={{ marginBottom: '10px' }}>
+            <div className="mb-2">
               <span>21 Feb-6 Mar,08:00 PM</span>
-              <h2 style={{ fontSize: '20px' }}>Valorant Multiplayer</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...</p>
+              <h2 className="text-xl">Apex Of Legend Royal Battle</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor...
+              </p>
             </div>
-            <hr style={{ borderColor: '#555' }} />
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
-              <div style={{ textAlign: 'center' }}>
-                <span style={{ display: 'block', fontWeight: 'bold' }}>Win Price</span>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src={trophy} alt="Trophy" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
-                  <span>₹29k</span>
+            <hr className="border-gray-600" />
+            <div className="flex justify-between items-center mt-3">
+              <div className="text-center">
+                <span className="block font-bold">Win Price</span>
+                <div className="flex items-center justify-center">
+                  <img src={trophy} alt="Trophy" className="w-5 h-5 mr-1" />
+                  <span>₹44k</span>
                 </div>
               </div>
-              <div style={{ textAlign: 'center' }}>
-                <span style={{ display: 'block', fontWeight: 'bold' }}>Player Slot</span>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src={group} alt="Group" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
+              <div className="text-center">
+                <span className="block font-bold">Player Slot</span>
+                <div className="flex items-center justify-center">
+                  <img src={group} alt="Group" className="w-5 h-5 mr-1" />
                   <span>4v4</span>
                 </div>
               </div>
-              <FaArrowRight size={20} className="arrow"/>
+              <FaArrowRight size={20} className="text-white" />
             </div>
           </div>
 
+          <div className="bg-gray-800 rounded-lg p-5">
+            <div className="mb-4">
+              <img src={img3} alt="Game 3" className="w-full rounded-lg" />
+            </div>
+            <div className="flex items-center mb-2">
+              <img src={logo3} alt="Logo 3" className="w-10 h-10 mr-2" />
+              Valorant
+            </div>
+            <div className="mb-2">
+              <span>21 Feb-6 Mar,08:00 PM</span>
+              <h2 className="text-xl">Valorant Multiplayer</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor...
+              </p>
+            </div>
+            <hr className="border-gray-600" />
+            <div className="flex justify-between items-center mt-3">
+              <div className="text-center">
+                <span className="block font-bold">Win Price</span>
+                <div className="flex items-center justify-center">
+                  <img src={trophy} alt="Trophy" className="w-5 h-5 mr-1" />
+                  <span>₹29k</span>
+                </div>
+              </div>
+              <div className="text-center">
+                <span className="block font-bold">Player Slot</span>
+                <div className="flex items-center justify-center">
+                  <img src={group} alt="Group" className="w-5 h-5 mr-1" />
+                  <span>4v4</span>
+                </div>
+              </div>
+              <FaArrowRight size={20} className="text-white" />
+            </div>
+          </div>
         </div>
       </div>
     </div>

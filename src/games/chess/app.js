@@ -16,6 +16,7 @@ const io = socket.listen(server); // attach socket.io to the server
 const chess = new Chess();
 
 const cors = require('cors');
+const { redirect } = require('next/dist/server/api-utils');
 
 app.use(cors({
   origin: 'http://localhost:3000', 
@@ -77,7 +78,7 @@ io.on("connection", (socket) => {
 
     socket.on("move", (msg) => {
        try{
-
+/
         //inn if conditions se check kr rhe h k kis player ka turn h
         //agar white ki turn hai or black player ne move kiya to usko error msg bhej do
         if(chess.turn()=== "w" && socket.id!== player.white){
@@ -97,6 +98,36 @@ io.on("connection", (socket) => {
             currentPlayer = chess.turn(); //agr move valid h to turn change kr do
             io.emit("move", msg); //sabko move bhej do
             io.emit("boardState", chess.fen()); //sabko board ki state bhej do. fen function se board ki state nikal rhe h
+
+
+            if(chess.isGameOver()){
+
+                if(chess.isCheckmate()){
+                    io.emit("gameOver", "Checkmate");
+
+                    if(chess.turn() === "w"){
+                        console.log("Black wins");
+                        redirect("http://localhost:3000");
+
+                    }else{
+                        console.log("White wins");
+                        redirect("http://localhost:3000");
+                    }
+                    console.log("Checkmate");
+                }else if(chess.isStalemate()){
+                    io.emit("gameOver", "Stalemate");
+                    console.log("Stalemate");
+                }else if(chess.isThreefoldRepetition()){
+                    io.emit("gameOver", "Threefold Repetition");
+                    console.log("Threefold Repetition");
+                }else if(chess.isInsufficientMaterial()){
+                    io.emit("gameOver", "Insufficient Material");
+                    console.log("Insufficient Material");
+                }else if(chess.isDraw()){
+                    io.emit("gameOver", "Draw");
+                    console.log("Draw");
+                }
+            }
         }else{
             console.log("Invalid move", msg);
             socket.emit("err", "Invalid move");
@@ -117,4 +148,3 @@ io.on("connection", (socket) => {
 server.listen(3001, () => {
     console.log("Server is running on port 3001");
 });
-

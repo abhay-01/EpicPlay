@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import img1 from "../images/img1.jpeg";
 import img2 from "../images/img2.jpg";
 import img3 from "../images/img3.jpeg";
@@ -9,8 +9,47 @@ import trophy from "../images/trophy.png";
 import group from "../images/group.png";
 import { FaArrowRight } from "react-icons/fa";
 import headerImage from "../images/headerImage.png";
+import openSocket from "socket.io-client";  
+import io from "socket.io-client";
+
+
+const socket = io('https://localhost:3005',{
+  withCredentials:true,
+  transportOptions:{
+    polling:{
+      extraHeaders:{
+        'my-custom-header':'abcd'
+      }
+    }
+  }
+});
+
 
 const Home = () => {
+  openSocket("https://localhost:3005");
+  io("https://localhost:3005",{
+    withCredentials:true,
+    transportOptions:{
+      polling:{
+        extraHeaders:{
+          'my-custom-header':'abcd'
+        }
+      }
+    }
+  });
+
+
+  useEffect(() => {
+
+    const socket = io('https://localhost:3005',{
+      transports:['websocket','polling','flashsocket']
+    });
+    
+    socket.on('connect',()=>{
+      console.log('Connected to server');
+    }
+    );
+  }, []);
   return (
     <div className="h-screen overflow-y-auto bg-black text-white">
       {/* Search Bar */}

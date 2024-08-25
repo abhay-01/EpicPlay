@@ -9,9 +9,17 @@ const { error } = require('console');
 
 
 const app = express();
-const server = http.createServer(app); // create a server using the express app
+const server = http.createServer(app); 
 
-const io = socket.listen(server); // attach socket.io to the server
+const io = require("socket.io")(server, {
+  cors: {
+    origin: '*', 
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'], 
+    credentials: true, 
+
+  },
+});
 
 const chess = new Chess();
 
@@ -37,6 +45,17 @@ app.get("/", (req, res) => {
     }
 );
 
+app.post('/initiate-matchmaking', (req, res) => {
+  const { sender, target, url, type } = req.body;
+  io.emit('matchmaking', { sender, target, url, type });
+  res.status(200).send('Matchmaking initiated');
+});
+
+app.post('/accept-matchmaking', (req, res) => {
+  const { sender, target, url, type } = req.body;
+  io.emit('matchmaking-accepted', { sender, target, url, type });
+  res.status(200).send('Matchmaking accepted');
+});
 
 app.post("/start-chess-serevr",(req,res)=>{
     exec("npx nodemon src/games/chess/app.js", (error, stdout, stderr) => {
@@ -55,6 +74,11 @@ app.post("/start-chess-serevr",(req,res)=>{
 io.on("connection", (socket) => {
     console.log("A user has connected");
 
+    socket.on('initiate-matchmaking', (data) => {
+      io.emit('matchmaking', data); 
+      console.log('Matchmaking initiated:', data);
+  });
+  
     if(!player.white){
         player.white = socket.id; //is line ka mtlb h k agr player white nhi h to usko white bna do 
         socket.emit("playerRole", "w"); 
@@ -67,6 +91,14 @@ io.on("connection", (socket) => {
         socket.emit("spectatorRole");
     }
 
+    socket.on("matchmaking", (data)=>{
+      console.log("Matchmaking initiated by", data.sender);
+    });
+
+    socket.on("matchmaking-accepted", (data)=>{
+      console.log("Matchmaking accepted by", data.target);
+    });
+
     socket.on("disconnect", () => {
         if(player.white === socket.id){
             player.white = null;
@@ -78,7 +110,7 @@ io.on("connection", (socket) => {
 
     socket.on("move", (msg) => {
        try{
-/
+
         //inn if conditions se check kr rhe h k kis player ka turn h
         //agar white ki turn hai or black player ne move kiya to usko error msg bhej do
         if(chess.turn()=== "w" && socket.id!== player.white){

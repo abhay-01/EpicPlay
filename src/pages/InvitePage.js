@@ -1,30 +1,68 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
-import  openSocket from 'socket.io-client';
 import axios from 'axios';
 
-const socket = io('https://gamemate.onrender.com');
+const socket = io('http://localhost:3005', {
+    transports: ['websocket'],
+});
 
 const InvitePage = () => {
     const [email, setEmail] = useState('');
     const [invites, setInvites] = useState([]);
-    const [matchedInvite, setMatchedInvite] = useState(null);
+    const [matchedInvite, setMatchedInvite] = useState(false);
     const navigate = useNavigate();
+    const [inviteSender, setInviteSender] = useState('');
+    const [inviteTarget, setInviteTarget] = useState('');
+    const [inviteUrl, setInviteUrl] = useState('');
+    const [inviteType, setInviteType] = useState('');
 
-    useEffect(() => {
-        console.log("PEHLE WALA USEEFECT");
-      socket.on('matchmaking', (data) => {
-          console.log('Received matchmaking data:', data);
-          setInvites((prevInvites) => [...prevInvites, data]);
-      });
+    const socket = io('http://localhost:3005', {
+        transports: ['websocket'],
+    });
+    if(socket.on('matchmaking', (data)=>{
+        console.log("THIS IS INVITE PAGE-->", data);
+        setMatchedInvite(true);
+
+        // const foundInvite = invites.find(invite => invite.target === email);
+        // console.log("IT'S A INVITE-->", foundInvite);
+
+        if(data.target === email){
+            setMatchedInvite(true);
+            setInviteSender(data.sender);
+            setInviteTarget(data.target);
+            setInviteUrl(data.url);
+            setInviteType(data.type);
+            
+        }
+        // setMatchedInvite(foundInvite);
+        
+
+    }));
+
 
     
-  socket.on("matchmaking", "HELLO");
-      return () => {
-          socket.off('matchmaking');
-      };
-  }, []);
+
+    
+
+//     useEffect(() => {
+//         console.log("PEHLE WALA USEEFECT");
+//         console.log("socket", socket.id);
+
+//         socket.emit('matchmaking', { sender: 'test', target: 'test2', url: 'http://localhost:3001', type: 'invite' });
+
+//       socket.on('matchmaking', (data) => {
+//             console.log('invite initiated:', data);
+//             setInvites([...invites, data]);
+//         });
+
+
+
+    
+//       return () => {
+//           socket.off('matchmaking');
+//       };
+//   }, []);
   
 
     const handleInputChange = (e) => {
@@ -32,43 +70,37 @@ const InvitePage = () => {
     };
 
     const handleAcceptInvite = async () => {
-        if (matchedInvite) {
-            const { sender, target, url, type } = matchedInvite;
-
-
+        if(matchedInvite){
+console.log("EK BAR DATA-->", matchedInvite);
             try {
-                // await fetch('https://cors-anywhere.herokuapp.com/https://gamemate.onrender.com/accept-matchmaking', {
-                //     method: 'POST',
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //     },
-                //     body: JSON.stringify({ sender, target, url, type }),
-                // });
-
-                 axios.post('https://cors-anywhere.herokuapp.com/https://gamemate.onrender.com/accept-matchmaking', {
-                    
-                    sender, target, url, type
-                },
-                {
+                const response = await fetch("http://localhost:3005/accept-matchmaking",{
+                    method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json'
                     },
+                    body: JSON.stringify({
+                        sender: inviteTarget,
+                        target: inviteSender,
+                        url: inviteUrl,
+                        type: inviteType
+                })
+            });
+
+            socket.emit('matchmaking-accepted', { sender: inviteTarget, target: inviteSender, url: inviteUrl, type: inviteType });
+                if(response.ok){
+                    console.log('INVITE PAGE KA RESPONSE-->', response);
+                }else{
+                    console.error('Failed to accept invite');
                 }
-            )
-
-                window.location.href = 'http://localhost:3001';
             } catch (error) {
-                console.error('Error accepting matchmaking:', error);
-            }
+                console.error('Error accepting invite:', error);
+
         }
-    };
 
-    useEffect(() => {
-        const foundInvite = invites.find(invite => invite.target === email);
-        setMatchedInvite(foundInvite);
+    }
+};
 
-        console.log('Invites:', invites);
-    }, [email, invites]);
+ 
 
     return (
         <div style = {{

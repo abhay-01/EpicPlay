@@ -45,17 +45,7 @@ app.get("/", (req, res) => {
     }
 );
 
-app.post('/initiate-matchmaking', (req, res) => {
-  const { sender, target, url, type } = req.body;
-  io.emit('matchmaking', { sender, target, url, type });
-  res.status(200).send('Matchmaking initiated');
-});
 
-app.post('/accept-matchmaking', (req, res) => {
-  const { sender, target, url, type } = req.body;
-  io.emit('matchmaking-accepted', { sender, target, url, type });
-  res.status(200).send('Matchmaking accepted');
-});
 
 app.post("/start-chess-serevr",(req,res)=>{
     exec("npx nodemon src/games/chess/app.js", (error, stdout, stderr) => {
@@ -72,13 +62,8 @@ app.post("/start-chess-serevr",(req,res)=>{
 
 
 io.on("connection", (socket) => {
-    console.log("A user has connected");
+    console.log("A user has connected", socket.id);
 
-    socket.on('initiate-matchmaking', (data) => {
-      io.emit('matchmaking', data); 
-      console.log('Matchmaking initiated:', data);
-  });
-  
     if(!player.white){
         player.white = socket.id; //is line ka mtlb h k agr player white nhi h to usko white bna do 
         socket.emit("playerRole", "w"); 

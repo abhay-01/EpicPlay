@@ -13,7 +13,7 @@ import openSocket from "socket.io-client";
 import io from "socket.io-client";
 
 
-const socket = io('https://localhost:3005',{
+const socket = io('http://localhost:3005',{
   withCredentials:true,
   transportOptions:{
     polling:{
@@ -26,30 +26,21 @@ const socket = io('https://localhost:3005',{
 
 
 const Home = () => {
-  openSocket("https://localhost:3005");
-  io("https://localhost:3005",{
-    withCredentials:true,
-    transportOptions:{
-      polling:{
-        extraHeaders:{
-          'my-custom-header':'abcd'
-        }
-      }
-    }
+  socket.on("connect", () => {
+    console.log("Connected to server");
   });
 
+  // useEffect(() => {
 
-  useEffect(() => {
-
-    const socket = io('https://localhost:3005',{
-      transports:['websocket','polling','flashsocket']
-    });
+  //   const socket = io('http://localhost:3005',{
+  //     transports:['websocket','polling','flashsocket']
+  //   });
     
-    socket.on('connect',()=>{
-      console.log('Connected to server');
-    }
-    );
-  }, []);
+  //   socket.on('connect',()=>{
+  //     console.log('Connected to server');
+  //   }
+  //   );
+  // }, []);
   return (
     <div className="h-screen overflow-y-auto bg-black text-white">
       {/* Search Bar */}

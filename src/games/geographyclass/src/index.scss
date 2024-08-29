@@ -1,0 +1,341 @@
+@import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  list-style: none;
+}
+
+a {
+  color: unset;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: rgb(127, 0, 255);
+  background: radial-gradient(
+    circle,
+    rgba(127, 0, 255, 1) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px 0px;
+}
+
+.gameplaySection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 80px;
+
+  @media screen and (max-width: 925px) {
+    padding: 10px 0px;
+  }
+
+  @media screen and (max-width: 660px) {
+    flex-direction: column-reverse;
+  }
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  padding: 10px 0px;
+
+  h1 {
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+}
+
+aside {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  height: 100%;
+  padding: 0px 15px;
+  @media screen and (max-width: 660px) {
+    padding-top: 10px;
+    padding-bottom: 20px;
+  }
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: white;
+  h3 {
+    margin-bottom: 15px;
+  }
+
+  h5 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    display: flex;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+figure,
+menu {
+  margin: 0;
+  padding: 0;
+}
+
+.draggableFlag {
+  height: 60px;
+}
+.draggableFlag:hover {
+  box-shadow: 0px 7px 10px 1px rgba(22, 22, 22, 0.527);
+
+  transition: 280ms ease-in-out all;
+}
+
+.isDragging {
+  opacity: 80%;
+  transition: 280ms ease-in-out all;
+}
+
+.silhouetteColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  /*background-color: midnightblue;*/
+}
+
+.staticFlag {
+  width: 80px;
+  box-shadow: 0px 7px 10px 1px rgb(255, 255, 255);
+}
+
+.silhouettesGridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  grid-template-rows: repeat(auto, minmax(100px, 1fr));
+  place-items: center;
+  gap: 25px;
+  width: 100%;
+
+  @media screen and (max-width: 925px) {
+    padding: 20px;
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+  }
+}
+
+.draggableFlagsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 25px 14px;
+  background-color: transparent;
+  border-radius: 15px;
+  border: 2px solid white;
+  @media screen and (max-width: 660px) {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    grid-template-rows: repeat(auto, minmax(100px, 1fr));
+
+    overflow-y: scroll;
+    overflow-x: scroll;
+  }
+}
+
+.countryNameParagraph {
+  padding: 5px 8px;
+  border-radius: 5px;
+  font-weight: bold;
+  background-color: white;
+}
+
+.errorParagraph {
+  padding: 10px;
+  background-color: #be1a1f;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+}
+
+.howToPlayBox {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 5px;
+
+  min-width: 360px;
+  max-width: 500px;
+  color: white;
+  header {
+    border-bottom: 1px solid white;
+
+    h1 {
+      font-size: 22px;
+    }
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    button {
+      border: none;
+      background: none;
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
+  i {
+    color: #fafafa;
+  }
+  background-color: black;
+  background-image: url("../public/assets/misc/bg.svg");
+  background-repeat: repeat;
+  background-size: cover;
+  @media screen and (max-width: 1024px) {
+    img {
+      display: none;
+      visibility: hidden;
+    }
+  }
+  p {
+    opacity: 0.8;
+  }
+}
+
+.timer {
+  width: 100%;
+  height: fit-content;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  text-align: center;
+  transition: all;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.3s;
+
+  .timerTitle {
+    font-size: 18px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+  .timerNumbers {
+    margin: 0;
+  }
+
+  @media screen and (max-width: 660px) {
+    width: 180px;
+  }
+}
+.timer:hover {
+  width: 110%;
+}
+
+.endMatchStats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 360px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #fff3fa;
+  border: 2px solid #fff3fa;
+
+  h1 {
+    font-size: 24px;
+  }
+}
+
+.individualStat {
+  width: 100%;
+  padding: 0px 10px;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #254d4c;
+  color: white;
+
+  h1 {
+    font-size: 20px;
+  }
+  h2 {
+    font-weight: normal;
+    margin-top: 0px;
+  }
+}
+
+.warning {
+  color: #be1a1f;
+}
+
+.playAgainBtn {
+  width: 100px;
+  height: 40px;
+  margin: 20px 0px;
+  border: none;
+  border-radius: 5px;
+  color: black;
+  font-weight: bold;
+  background-color: #f6ef07;
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+}
+
+.playAgainBtn:hover {
+  cursor: pointer;
+  width: 130px;
+
+  background-color: black;
+  color: white;
+}
+
+.locationBox {
+  width: 300px;
+  background-color: #fa8305;
+  padding: 0px 8px;
+  border-radius: 5px;
+  text-align: center;
+
+  color: white;
+
+  h1 {
+    margin: 10px 0px;
+  }
+
+  p {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+}

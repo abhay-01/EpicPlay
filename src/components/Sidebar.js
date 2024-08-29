@@ -58,7 +58,7 @@ export const Sidebar = ({ children }) => {
       icon: <FaDownload />,
     },
     {
-      path: "/settings",
+      path: "/invite",
       name: "Settings",
       icon: <FaCog />,
     },

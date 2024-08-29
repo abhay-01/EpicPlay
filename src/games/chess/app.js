@@ -9,13 +9,22 @@ const { error } = require('console');
 
 
 const app = express();
-const server = http.createServer(app); // create a server using the express app
+const server = http.createServer(app); 
 
-const io = socket.listen(server); // attach socket.io to the server
+const io = require("socket.io")(server, {
+  cors: {
+    origin: '*', 
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'], 
+    credentials: true, 
+
+  },
+});
 
 const chess = new Chess();
 
 const cors = require('cors');
+const { redirect } = require('next/dist/server/api-utils');
 
 app.use(cors({
   origin: 'http://localhost:3000', 
@@ -37,6 +46,7 @@ app.get("/", (req, res) => {
 );
 
 
+
 app.post("/start-chess-serevr",(req,res)=>{
     exec("npx nodemon src/games/chess/app.js", (error, stdout, stderr) => {
         if (error) {
@@ -52,7 +62,7 @@ app.post("/start-chess-serevr",(req,res)=>{
 
 
 io.on("connection", (socket) => {
-    console.log("A user has connected");
+    console.log("A user has connected", socket.id);
 
     if(!player.white){
         player.white = socket.id; //is line ka mtlb h k agr player white nhi h to usko white bna do 
@@ -65,6 +75,14 @@ io.on("connection", (socket) => {
     else{
         socket.emit("spectatorRole");
     }
+
+    socket.on("matchmaking", (data)=>{
+      console.log("Matchmaking initiated by", data.sender);
+    });
+
+    socket.on("matchmaking-accepted", (data)=>{
+      console.log("Matchmaking accepted by", data.target);
+    });
 
     socket.on("disconnect", () => {
         if(player.white === socket.id){
@@ -97,6 +115,36 @@ io.on("connection", (socket) => {
             currentPlayer = chess.turn(); //agr move valid h to turn change kr do
             io.emit("move", msg); //sabko move bhej do
             io.emit("boardState", chess.fen()); //sabko board ki state bhej do. fen function se board ki state nikal rhe h
+
+
+            if(chess.isGameOver()){
+
+                if(chess.isCheckmate()){
+                    io.emit("gameOver", "Checkmate");
+
+                    if(chess.turn() === "w"){
+                        console.log("Black wins");
+                        redirect("http://localhost:3000");
+
+                    }else{
+                        console.log("White wins");
+                        redirect("http://localhost:3000");
+                    }
+                    console.log("Checkmate");
+                }else if(chess.isStalemate()){
+                    io.emit("gameOver", "Stalemate");
+                    console.log("Stalemate");
+                }else if(chess.isThreefoldRepetition()){
+                    io.emit("gameOver", "Threefold Repetition");
+                    console.log("Threefold Repetition");
+                }else if(chess.isInsufficientMaterial()){
+                    io.emit("gameOver", "Insufficient Material");
+                    console.log("Insufficient Material");
+                }else if(chess.isDraw()){
+                    io.emit("gameOver", "Draw");
+                    console.log("Draw");
+                }
+            }
         }else{
             console.log("Invalid move", msg);
             socket.emit("err", "Invalid move");
@@ -117,4 +165,3 @@ io.on("connection", (socket) => {
 server.listen(3001, () => {
     console.log("Server is running on port 3001");
 });
-

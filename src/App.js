@@ -10,11 +10,18 @@ import Settings from "../src/pages/Settings";
 import Install from "../src/pages/Install";
 import Faqs from "../src/pages/Faqs";
 import { Routes, Route } from "react-router-dom";
+<<<<<<< HEAD
 import AddFriends from "./pages/AddFriends";
 import { Login } from "./pages/Login";
 import { SignUP } from "./pages/SignUp";
 import { Otp } from "./pages/Otp";
 import { Password } from "./pages/Password";
+=======
+import AddFriends from "../src/pages/AddFriends";
+import MatchMaking from "../src/pages/MatchMaking";
+import Test from "./pages/InvitePage";
+import InvitePage from "../src/pages/InvitePage";
+>>>>>>> af62b89146a1bda16d4e376d375943cba63d5aad
 
 function App() {
   return (
@@ -30,10 +37,15 @@ function App() {
           <Route path="install" element={<Install />} />
           <Route path="settings" element={<Settings />} />
           <Route path="faqs" element={<Faqs />} />
+<<<<<<< HEAD
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUP />} />
           <Route path="otp" element={<Otp />} />
           <Route path="password" element={<Password />} />
+=======
+          <Route path="matchmaking" element={<MatchMaking />} />
+          <Route path = "invite" element = {<InvitePage />} />
+>>>>>>> af62b89146a1bda16d4e376d375943cba63d5aad
         </Routes>
       </Sidebar>
     </BrowserRouter>

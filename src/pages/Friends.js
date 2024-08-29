@@ -2,8 +2,15 @@ import React from "react";
 import { data } from "../utils/Friends";
 import icon from "../assets/boy.png";
 import bg from "../assets/bg.svg";
+import { useNavigate } from "react-router-dom";
 
 const Friends = () => {
+  const navigate = useNavigate();
+
+  const handleClick = (e) => {
+    navigate('/allgames');
+    }
+  
   const color = {
     busy: "#F6EF07",
     online: "#0DEF0D",
@@ -43,7 +50,7 @@ const Friends = () => {
       >
         <div className="font-semibold text-2xl my-4">All Friends</div>
         {data.map((item) => (
-          <div className="border flex flex-row rounded-xl items-center gap-x-4 my-4 py-4 px-8 w-10/12 transition duration-300 ease-in-out hover:scale-x-105 ">
+          <div className="border flex flex-row rounded-xl items-center gap-x-4 my-4 py-4 px-8 w-10/12 transition duration-300 ease-in-out hover:scale-x-105" onClick={handleClick}>
             <img src={icon} width="40px" height="40px" className="" />
             <div className="flex flex-row justify-between w-full items-center">
               <div>

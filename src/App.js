@@ -11,6 +11,10 @@ import Install from "../src/pages/Install";
 import Faqs from "../src/pages/Faqs";
 import { Routes, Route } from "react-router-dom";
 import AddFriends from "./pages/AddFriends";
+import { Login } from "./pages/Login";
+import { SignUP } from "./pages/SignUp";
+import { Otp } from "./pages/Otp";
+import { Password } from "./pages/Password";
 
 function App() {
   return (
@@ -26,6 +30,10 @@ function App() {
           <Route path="install" element={<Install />} />
           <Route path="settings" element={<Settings />} />
           <Route path="faqs" element={<Faqs />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<SignUP />} />
+          <Route path="otp" element={<Otp />} />
+          <Route path="password" element={<Password />} />
         </Routes>
       </Sidebar>
     </BrowserRouter>

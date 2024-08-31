@@ -54,6 +54,7 @@
     padding: 0 32px;
     box-sizing: border-box;
     justify-content: space-between;
+}
   
   .search {
     display: flex;

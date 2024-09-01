@@ -15,6 +15,7 @@
     "ejs": "^3.1.10",
     "framer-motion": "^11.3.19",
     "next": "^14.2.5",
+    "nodemon": "^3.1.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.2.1",
@@ -32,9 +33,9 @@
   },
   "scripts": {
     "dev": "nodemon src/games/ballzone/server/index.ts",
-    "start": "concurrently \"npm run start:react\" \"npm run start:node\"",
+    "start": "concurrently \"npm run start:react\" \"npm run start:node\" ",
     "start:react": "react-scripts start",
-    "start:node": "node src/games/chess/app.js",
+    "start:node": "node src/games/chess/app.js ",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -9,10 +9,7 @@ import trophy from "../images/trophy.png";
 import group from "../images/group.png";
 import { FaArrowRight } from "react-icons/fa";
 import headerImage from "../images/headerImage.png";
-<<<<<<< HEAD
 import openSocket from "socket.io-client";  
-=======
->>>>>>> 9aefb50d5650c0e756d575659d120b1249dd802d
 import Carousels from "../components/Carousel";
 import io from "socket.io-client";
 
@@ -28,15 +25,15 @@ const socket = io('http://localhost:3005',{
   }
 });
 
-var items=[
 
-]
 
 const Home = () => {
   socket.on("connect", () => {
     console.log("Connected to server");
   });
 
+
+  //new code
   // useEffect(() => {
 
   //   const socket = io('http://localhost:3005',{
@@ -197,6 +194,7 @@ const Home = () => {
                 eiusmod tempor...
               </p>
             </div>
+            
             <hr className="border-gray-600" />
             <div className="flex justify-between items-center mt-3">
               <div className="text-center">

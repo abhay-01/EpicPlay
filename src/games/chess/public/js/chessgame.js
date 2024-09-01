@@ -12,6 +12,7 @@ const renderBoard = () => {
     if (gameOver) {
         return;
     }
+        //comments
 
     const board = chess.board();
 

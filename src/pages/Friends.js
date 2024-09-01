@@ -27,6 +27,7 @@ const Friends = () => {
         display: "flex",
         flexDirection: "column",
       }}
+      
     >
       {/* Search Bar */}
       <div style={{ padding: "20px", textAlign: "center" }} className="border-b border-white border-opacity-35 ">
@@ -49,6 +50,7 @@ const Friends = () => {
         }}
       >
         <div className="font-semibold text-2xl my-4">All Friends</div>
+        <div className="w-full flex flex-col items-center">
         {data.map((item) => (
           <div className="border flex flex-row rounded-xl items-center gap-x-4 my-4 py-4 px-8 w-10/12 transition duration-300 ease-in-out hover:scale-x-105" onClick={handleClick}>
             <img src={icon} width="40px" height="40px" className="" />
@@ -67,6 +69,7 @@ const Friends = () => {
             </div>
           </div>
         ))}
+        </div>
       </div>
     </div>
   );

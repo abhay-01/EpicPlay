@@ -9,7 +9,6 @@ import trophy from "../images/trophy.png";
 import group from "../images/group.png";
 import { FaArrowRight } from "react-icons/fa";
 import headerImage from "../images/headerImage.png";
-import openSocket from "socket.io-client";  
 import Carousels from "../components/Carousel";
 import io from "socket.io-client";
 

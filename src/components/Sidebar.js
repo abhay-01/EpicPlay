@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   FaBars,
@@ -7,6 +8,7 @@ import {
   FaHome,
   FaQuestionCircle,
   FaSearch,
+  FaUserCircle,
   FaUserFriends,
   FaUserPlus,
 } from "react-icons/fa";
@@ -16,6 +18,11 @@ import { NavLink } from "react-router-dom";
 export const Sidebar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+
+  const navigate = useNavigate();
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
 
   const menuItem = [
     {
@@ -81,11 +88,15 @@ export const Sidebar = ({ children }) => {
           {isOpen && <div className="explore-text">Explore</div>}
         </div>
 
-        <div className="footer">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
+        {/* <div
+          className={`explore ${isOpen ? "expanded" : "collapsed"}`}
+          onClick={handleLoginClick}
+        >
+          <div className="icon">
+            <FaUserCircle />
+          </div>
+          {isOpen && <div className="explore-text">Login/SignUP</div>}
+        </div> */}
 
         {menuItem.map((item, index) => (
           <NavLink
@@ -103,6 +114,15 @@ export const Sidebar = ({ children }) => {
             </div>
           </NavLink>
         ))}
+        <div
+          className={`exploree ${isOpen ? "expanded" : "collapsed"}`}
+          onClick={handleLoginClick}
+        >
+          <div className="icon">
+            <FaUserCircle size={30} />
+          </div>
+          {isOpen && <div className="explore-text">Login/SignUP</div>}
+        </div>
       </div>
       <main className="main-conten">{children}</main>
     </div>

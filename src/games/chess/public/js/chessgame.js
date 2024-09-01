@@ -10,7 +10,7 @@ let gameOver = false; // Track if the game is over
 
 const renderBoard = () => {
     if (gameOver) {
-        return; // Skip rendering if the game is over
+        return;
     }
 
     const board = chess.board();

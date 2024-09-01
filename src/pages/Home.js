@@ -10,6 +10,7 @@ import group from "../images/group.png";
 import { FaArrowRight } from "react-icons/fa";
 import headerImage from "../images/headerImage.png";
 import openSocket from "socket.io-client";  
+import Carousels from "../components/Carousel";
 import io from "socket.io-client";
 
 
@@ -24,6 +25,9 @@ const socket = io('http://localhost:3005',{
   }
 });
 
+var items=[
+
+]
 
 const Home = () => {
   socket.on("connect", () => {
@@ -42,8 +46,9 @@ const Home = () => {
   //   );
   // }, []);
   return (
-    <div className="h-screen overflow-y-auto bg-black text-white">
+    <div className="h-screen w-screen overflow-y-auto bg-black text-white md:pr-10 md:pl-20 pr-5 pl-10">
       {/* Search Bar */}
+      
       <div className="p-5 text-center">
         <input
           type="text"
@@ -56,13 +61,15 @@ const Home = () => {
       <div className="w-full">
         <img src={headerImage} alt="Header Game" className="w-full h-auto" />
       </div>
+      <Carousels/>
+      
 
       {/* Upcoming Matches */}
       <div className="p-5">
-        <div className="text-2xl font-bold mb-5 ml-[55px]">
+        <div className="text-2xl font-bold mb-5 ml-[55px] ">
           Upcoming Matches
         </div>
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 py-4 gap-x-10 gap-y-8">
           <div className="bg-gray-800 rounded-lg p-5">
             <div className="mb-4">
               <img src={img1} alt="Game 1" className="w-full rounded-lg" />
@@ -95,7 +102,7 @@ const Home = () => {
                   <span>4v4</span>
                 </div>
               </div>
-              <FaArrowRight size={20} className="text-white" />
+              <FaArrowRight size={20} className="text-white cursor-pointer" />
             </div>
           </div>
 

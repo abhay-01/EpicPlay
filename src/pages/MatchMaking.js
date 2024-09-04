@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 
-const socket = io('http://localhost:3005', {
-  transports: ['websocket'],
-  reconnection: true, 
-  reconnectionAttempts: 10, 
+const socket = io("http://localhost:3005", {
+  transports: ["websocket"],
+  reconnection: true,
+  reconnectionAttempts: 10,
   reconnectionDelay: 1000,
 });
 
@@ -12,7 +12,9 @@ const Matchmaking = () => {
   const [friendEmail, setFriendEmail] = useState("test2");
   const [selectedGame, setSelectedGame] = useState("chess");
   const [myEmail, setMyEmail] = useState("test");
-  
+  const [result, setResult] = useState("");
+  const [showResult, setShowResult] = useState(false);
+
   useEffect(() => {
     socket.on("accept-matchmaking", (data) => {
       console.log("ACCEPTANCE AA GAYA-->", data);
@@ -21,10 +23,18 @@ const Matchmaking = () => {
       }
     });
 
+    //PARSING
+    const params = new URLSearchParams(window.location.search);
+    const resultParam = params.get("result");
+
+    if (resultParam) {
+      setResult(resultParam);
+      setShowResult(true);
+    }
     return () => {
       socket.off("accept-matchmaking");
     };
-  }, []); 
+  }, []);
 
   const handleInitiateMatchmaking = async () => {
     try {
@@ -93,6 +103,28 @@ const Matchmaking = () => {
         <option value="checkers">Checkers</option>
       </select>
       <button onClick={handleInitiateMatchmaking}>Initiate Matchmaking</button>
+
+      {/* Display Game Result */}
+      {showResult && (
+        <div className="game-result">
+          <div className="bg-gray-800 p-4 rounded-lg shadow-lg text-white">
+            <h2 className="text-2xl font-bold mb-2">Game Over</h2>
+            {result === "win" ? (
+              <p className="text-lg">Congratulations! You won the game.</p>
+            ) : (
+              <p className="text-lg">
+                Sorry, you lost the game. Better luck next time!
+              </p>
+            )}
+            <button
+              className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={() => setShowResult(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

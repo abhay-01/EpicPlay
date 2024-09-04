@@ -133,16 +133,26 @@ socket.on("move", (move) => {
 
 const displayGameResult = (result) => {
     // Display game result to the user
-    const resultElement = document.createElement("div");
-    resultElement.classList.add("game-result");
-    resultElement.innerHTML = `
-        <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-white">
-            <h2 class="text-2xl font-bold mb-2">Game Over</h2>
-            <p class="text-lg">${result}</p>
-            <button class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="location.reload();">Play Again</button>
-        </div>
-    `;
-    document.body.appendChild(resultElement);
+    // const resultElement = document.createElement("div");
+    // resultElement.classList.add("game-result");
+    // resultElement.innerHTML = `
+    //     <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-white">
+    //         <h2 class="text-2xl font-bold mb-2">Game Over</h2>
+    //         <p class="text-lg">${result}</p>
+    //         <button class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="location.reload();">Play Again</button>
+    //     </div>
+    // `;
+    // document.body.appendChild(resultElement);
+
+    const winner = result.includes("White") ? "white" : "black";
+    const playerResult = playerRole === winner ? "win" : "lose";
+
+    // Redirect to the matchmaking page with parameters
+    window.location.href = `http://localhost:3000/matchmaking?result=${playerResult}`;
+
+
+
 };
 
 renderBoard();
+

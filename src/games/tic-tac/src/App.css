@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Happy+Monkey&family=Poppins&display=swap');
+body{
+    background-color: #1F1F2F;
+}
+.main-div{
+    display:flex;
+    justify-content : center;
+    align-items: center;
+    color:white;
+    margin-top: 7vh;
+    flex-direction: column;
+}
+.title{
+    background-color: #4b495F;
+}
+.heading{
+    padding:5px 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 40px;
+}
+.square-wrapper{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap:10px;
+    column-gap: 10px;
+   
+}
+.move-detection{
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+    gap:5vw;
+    padding-top: 10px;
+    width:300px;
+}
+.left, .right{
+    width:120px;
+    height:30px ;
+    background-color:  #4b495F;
+    border-bottom-left-radius: 50px;
+    border-top-right-radius: 50px;
+    padding-top: 7px;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: 700;
+    text-align: center;
+}
+.finished-state{
+    font-size:20px;
+    padding: 0;
+    margin:0;
+    margin-top: 6px;
+    text-align: center;
+}
+.play{
+    background-color: #E4CA56;
+    color:black;
+    font-size:60px;
+    cursor: pointer;
+    border-radius: 8px;
+outline:none;
+font-weight: 700;
+margin-top:40vh ;
+padding: 6px 10px;
+border:none;
+}
+.waiting{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width:100vw;
+    height: 100vh;; */
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size:40px;
+    color: white;;
+}
+.current-move-circle {
+    background-color: #DD7F9F !important;
+  }
+  
+  .current-move-cross {
+    background-color: #3FA7F0 !important;
+  }
+  

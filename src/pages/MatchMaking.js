@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 
-const socket = io('http://localhost:3005', {
-  transports: ['websocket'],
-  reconnection: true, 
-  reconnectionAttempts: 10, 
+const socket = io("http://localhost:3005", {
+  transports: ["websocket"],
+  reconnection: true,
+  reconnectionAttempts: 10,
   reconnectionDelay: 1000,
 });
 
@@ -12,19 +12,20 @@ const Matchmaking = () => {
   const [friendEmail, setFriendEmail] = useState("test2");
   const [selectedGame, setSelectedGame] = useState("chess");
   const [myEmail, setMyEmail] = useState("test");
-  
+
   useEffect(() => {
     socket.on("accept-matchmaking", (data) => {
       console.log("ACCEPTANCE AA GAYA-->", data);
       if (data.url) {
-        window.open(data.url, "_blank");
+        const url = data.url + `?email=${myEmail}`;
+        window.open(url, "_blank");
       }
     });
 
     return () => {
       socket.off("accept-matchmaking");
     };
-  }, []); 
+  }, []);
 
   const handleInitiateMatchmaking = async () => {
     try {

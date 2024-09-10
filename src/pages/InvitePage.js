@@ -16,10 +16,9 @@ const InvitePage = () => {
   const [inviteUrl, setInviteUrl] = useState("");
   const [inviteType, setInviteType] = useState("");
 
-
   const handleAcceptInvite = async () => {
     if (matchedInvite) {
-    //   console.log("EK BAR DATA-->", matchedInvite);
+      //   console.log("EK BAR DATA-->", matchedInvite);
       try {
         const response = await fetch(
           "http://localhost:3005/accept-matchmaking",
@@ -47,7 +46,8 @@ const InvitePage = () => {
             })
           ) {
             console.log("EMITTED");
-            window.open(inviteUrl, "_blank");
+            const url = inviteUrl + `?email=${email}`;
+            window.open(url, "_blank");
           } else {
             console.log("NOT EMITTED");
           }
@@ -66,7 +66,7 @@ const InvitePage = () => {
 
       if (data.target === email) {
         console.log("YE MATCH HUA HAI", data.target, email);
-        setMatchedInvite(true); 
+        setMatchedInvite(true);
         setInviteSender(data.sender);
         setInviteTarget(data.target);
         setInviteUrl(data.url);
@@ -77,7 +77,7 @@ const InvitePage = () => {
     return () => {
       socket.off("matchmaking");
     };
-  }, [email]); 
+  }, [email]);
 
   const handleInputChange = (e) => {
     setEmail(e.target.value);

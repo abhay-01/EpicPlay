@@ -23,6 +23,20 @@ const Matchmaking = () => {
       }
     });
 
+  
+
+    socket.on("registerEmail", (data) => {
+      console.log("MATCH CHESSGAME---", data);
+    });
+
+    socket.on("gameOver", (data) => {
+      console.log(`${data.email} has ${data.result} the game`);
+    });
+
+    socket.on("redirect",(data)=>{
+      console.log("redir",data);
+    })
+
     //PARSING
     const params = new URLSearchParams(window.location.search);
     const resultParam = params.get("result");
@@ -54,6 +68,7 @@ const Matchmaking = () => {
         }
       );
 
+
       if (response.ok) {
         console.log("Matchmaking initiated---", response);
         socket.emit("matchmaking", {
@@ -62,6 +77,7 @@ const Matchmaking = () => {
           url: "http://localhost:3001",
           type: selectedGame,
         });
+
       } else {
         console.error("Failed to initiate matchmaking");
       }

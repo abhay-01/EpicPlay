@@ -64,6 +64,10 @@ app.post("/start-chess-serevr",(req,res)=>{
 io.on("connection", (socket) => {
     console.log("A user has connected", socket.id);
 
+    io.on("registerEmail", (data) => {
+        console.log("Email registered", data.email);
+    });
+    
     if(!player.white){
         player.white = socket.id; //is line ka mtlb h k agr player white nhi h to usko white bna do 
         socket.emit("playerRole", "w"); 
@@ -76,11 +80,11 @@ io.on("connection", (socket) => {
         socket.emit("spectatorRole");
     }
 
-    socket.on("matchmaking", (data)=>{
+    io.on("matchmaking", (data)=>{
       console.log("Matchmaking initiated by", data.sender);
     });
 
-    socket.on("matchmaking-accepted", (data)=>{
+    io.on("matchmaking-accepted", (data)=>{
       console.log("Matchmaking accepted by", data.target);
     });
 
@@ -99,11 +103,13 @@ io.on("connection", (socket) => {
         //inn if conditions se check kr rhe h k kis player ka turn h
         //agar white ki turn hai or black player ne move kiya to usko error msg bhej do
         if(chess.turn()=== "w" && socket.id!== player.white){
+
             socket.emit("err", "Its not your turn");
             return;
         }
 
         if(chess.turn()=== "b" && socket.id!== player.black){
+
             socket.emit("err", "Its not your turn");
             return;
         }
@@ -123,11 +129,17 @@ io.on("connection", (socket) => {
                     io.emit("gameOver", "Checkmate");
 
                     if(chess.turn() === "w"){
-                        console.log("Black wins");
+                        socket.on("registerEmail", (data) => {
+                            console.log("SERVER---", data.email);
+                        });
+                        console.log("BLACK KI ID---", player.black);
                         redirect("http://localhost:3000");
 
                     }else{
-                        console.log("White wins");
+                        socket.on("registerEmail", (data) => {
+                            console.log("SERVER---", data.email);
+                        });
+                        console.log("WHITE KI ID---", player.white);
                         redirect("http://localhost:3000");
                     }
                     console.log("Checkmate");

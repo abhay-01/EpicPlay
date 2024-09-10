@@ -51,6 +51,8 @@ const InvitePage = () => {
           } else {
             console.log("NOT EMITTED");
           }
+          socket.on("registerEmail",inviteTarget);
+
         } else {
           console.error("Failed to accept invite");
         }
@@ -63,6 +65,9 @@ const InvitePage = () => {
   useEffect(() => {
     socket.on("matchmaking", (data) => {
       console.log("THIS IS INVITE PAGE-->", data);
+
+    
+
 
       if (data.target === email) {
         console.log("YE MATCH HUA HAI", data.target, email);

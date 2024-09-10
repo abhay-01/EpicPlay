@@ -2,11 +2,13 @@ const socket = io();
 
 const chess = new Chess();
 const boardElement = document.querySelector(".chessboard");
+const playerEmail = document.querySelector("#player-email");
 
 let draggedPiece = null;
 let sourceSquare = null;
 let playerRole = null;
 let gameOver = false; // Track if the game is over
+
 
 const renderBoard = () => {
     if (gameOver) {
@@ -15,6 +17,7 @@ const renderBoard = () => {
         //comments
 
     const board = chess.board();
+   
 
     boardElement.innerHTML = "";
     board.forEach((row, i) => {
@@ -108,8 +111,10 @@ const getPieceUnicode = (piece) => {
 // Listen for game over event
 socket.on("gameOver", (result) => {
     gameOver = true;
+    console.log("Game Over", result);
     displayGameResult(result);
 });
+socket.on("registerEmail")
 
 socket.on("playerRole", (role) => {
     playerRole = role;
@@ -131,6 +136,7 @@ socket.on("move", (move) => {
     renderBoard();
 });
 
+
 const displayGameResult = (result) => {
     // Display game result to the user
     // const resultElement = document.createElement("div");
@@ -147,12 +153,10 @@ const displayGameResult = (result) => {
     const winner = result.includes("White") ? "white" : "black";
     const playerResult = playerRole === winner ? "win" : "lose";
 
+    console.log(playerResult,winner);
     // Redirect to the matchmaking page with parameters
     window.location.href = `http://localhost:3000/matchmaking?result=${playerResult}`;
-
-
 
 };
 
 renderBoard();
-

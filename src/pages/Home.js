@@ -9,24 +9,22 @@ import trophy from "../images/trophy.png";
 import group from "../images/group.png";
 import { FaArrowRight } from "react-icons/fa";
 import headerImage from "../images/headerImage.png";
+import openSocket from "socket.io-client";
 import Carousels from "../components/Carousel";
 import io from "socket.io-client";
 
-
-const socket = io('http://localhost:3005',{
-  withCredentials:true,
-  transportOptions:{
-    polling:{
-      extraHeaders:{
-        'my-custom-header':'abcd'
-      }
-    }
-  }
+const socket = io("http://localhost:3005", {
+  withCredentials: true,
+  transportOptions: {
+    polling: {
+      extraHeaders: {
+        "my-custom-header": "abcd",
+      },
+    },
+  },
 });
 
-var items=[
-
-]
+var items = [];
 
 const Home = () => {
   socket.on("connect", () => {
@@ -38,7 +36,7 @@ const Home = () => {
   //   const socket = io('http://localhost:3005',{
   //     transports:['websocket','polling','flashsocket']
   //   });
-    
+
   //   socket.on('connect',()=>{
   //     console.log('Connected to server');
   //   }
@@ -47,7 +45,7 @@ const Home = () => {
   return (
     <div className="h-screen w-screen overflow-y-auto bg-black text-white md:pr-10 md:pl-20 pr-5 pl-10">
       {/* Search Bar */}
-      
+
       <div className="p-5 text-center">
         <input
           type="text"
@@ -60,8 +58,7 @@ const Home = () => {
       <div className="w-full">
         <img src={headerImage} alt="Header Game" className="w-full h-auto" />
       </div>
-      <Carousels/>
-      
+      <Carousels />
 
       {/* Upcoming Matches */}
       <div className="p-5">

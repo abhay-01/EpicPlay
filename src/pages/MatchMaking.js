@@ -19,7 +19,8 @@ const Matchmaking = () => {
     socket.on("accept-matchmaking", (data) => {
       console.log("ACCEPTANCE AA GAYA-->", data);
       if (data.url) {
-        window.open(data.url, "_blank");
+        const url = data.url + `?email=${myEmail}`;
+        window.open(url, "_blank");
       }
     });
 

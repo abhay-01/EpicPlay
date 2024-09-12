@@ -38,6 +38,10 @@ const Matchmaking = () => {
       console.log("redir",data);
     })
 
+    socket.on("gameStatus", (data) => {
+      console.log("Game status received:", data);
+    });
+
     //PARSING
     const params = new URLSearchParams(window.location.search);
     const resultParam = params.get("result");

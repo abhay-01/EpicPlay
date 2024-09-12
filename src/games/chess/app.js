@@ -3,9 +3,7 @@ const socket = require("socket.io")();
 const http = require("http");
 const { Chess } = require("chess.js");
 const path = require("path");
-const { title } = require("process");
 const { exec } = require("child_process");
-const { error } = require("console");
 
 const app = express();
 const server = http.createServer(app);
@@ -20,9 +18,7 @@ const io = require("socket.io")(server, {
 });
 
 const chess = new Chess();
-
 const cors = require("cors");
-const { redirect } = require("next/dist/server/api-utils");
 
 app.use(
   cors({
@@ -32,19 +28,23 @@ app.use(
 
 let player = {};
 let currentPlayer = "w";
-
+const playerEmails = {}; // Store emails by socket ID
+let Email = "";
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 
 app.get("/", (req, res) => {
-  const email = req.query.email;
+  let email = req.query.email;
   console.log("hello");
   console.log("Email", email);
+  Email = email;
+  // Print all stored player emails
+  console.log("Current player emails:", playerEmails);
   res.render("index", { title: "Chess Game" });
 });
 
-app.post("/start-chess-serevr", (req, res) => {
+app.post("/start-chess-server", (req, res) => {
   exec("npx nodemon src/games/chess/app.js", (error, stdout, stderr) => {
     if (error) {
       console.error(`exec error: ${error}`);
@@ -59,80 +59,83 @@ app.post("/start-chess-serevr", (req, res) => {
 io.on("connection", (socket) => {
   console.log("A user has connected", socket.id);
 
+  playerEmails[socket.id] = Email; // Store emai+l by socket ID
+  console.log("Player connected:", socket.id, "Email:", Email);
+  console.log("Current player emails:", playerEmails);
+
   if (!player.white) {
-    player.white = socket.id; //is line ka mtlb h k agr player white nhi h to usko white bna do
+    player.white = socket.id;
     socket.emit("playerRole", "w");
   } else if (!player.black) {
-    player.black = socket.id; //is line ka mtlb h k agr player black nhi h to usko black bna do
+    player.black = socket.id;
     socket.emit("playerRole", "b");
   } else {
     socket.emit("spectatorRole");
   }
 
-  socket.on("matchmaking", (data) => {
-    console.log("Matchmaking initiated by", data.sender);
-  });
-
-  socket.on("matchmaking-accepted", (data) => {
-    console.log("Matchmaking accepted by", data.target);
-  });
-
   socket.on("disconnect", () => {
+    console.log("Player disconnected:", socket.id, "Email:", playerEmails[socket.id]);
     if (player.white === socket.id) {
       player.white = null;
     }
     if (player.black === socket.id) {
       player.black = null;
     }
+    delete playerEmails[socket.id]; // Clean up email storage
+    console.log("Updated player emails:", playerEmails);
   });
 
   socket.on("move", (msg) => {
     try {
-      //inn if conditions se check kr rhe h k kis player ka turn h
-      //agar white ki turn hai or black player ne move kiya to usko error msg bhej do
       if (chess.turn() === "w" && socket.id !== player.white) {
-        socket.emit("err", "Its not your turn");
+        socket.emit("err", "It's not your turn");
         return;
       }
 
       if (chess.turn() === "b" && socket.id !== player.black) {
-        socket.emit("err", "Its not your turn");
+        socket.emit("err", "It's not your turn");
         return;
       }
 
-      //agr move valid h to usko move kr do
       const move = chess.move(msg);
 
       if (move) {
-        currentPlayer = chess.turn(); //agr move valid h to turn change kr do
-        io.emit("move", msg); //sabko move bhej do
-        io.emit("boardState", chess.fen()); //sabko board ki state bhej do. fen function se board ki state nikal rhe h
+        currentPlayer = chess.turn();
+        io.emit("move", msg);
+        io.emit("boardState", chess.fen());
 
         if (chess.isGameOver()) {
-          if (chess.isCheckmate()) {
-            io.emit("gameOver", "Checkmate");
+          let result = "";
+          let winnerEmail = "";
 
-            if (chess.turn() === "w") {
-              console.log("Black wins");
-              redirect("http://localhost:3000");
-            } else {
-              console.log("White wins");
-              redirect("http://localhost:3000");
-            }
-            console.log("Checkmate");
+          if (chess.isCheckmate()) {
+            result = "Checkmate";
+            winnerEmail = chess.turn() === "w" ? playerEmails[player.black] : playerEmails[player.white];
           } else if (chess.isStalemate()) {
-            io.emit("gameOver", "Stalemate");
-            console.log("Stalemate");
+            result = "Stalemate";
           } else if (chess.isThreefoldRepetition()) {
-            io.emit("gameOver", "Threefold Repetition");
-            console.log("Threefold Repetition");
+            result = "Threefold Repetition";
           } else if (chess.isInsufficientMaterial()) {
-            io.emit("gameOver", "Insufficient Material");
-            console.log("Insufficient Material");
+            result = "Insufficient Material";
           } else if (chess.isDraw()) {
-            io.emit("gameOver", "Draw");
-            console.log("Draw");
+            result = "Draw";
           }
+
+          io.emit("gameOver", result);
+
+          if (winnerEmail) {
+            io.to(player.white).emit("gameStatus", {
+              email: playerEmails[player.white],
+              status: winnerEmail === playerEmails[player.white] ? "win" : "lose",
+            });
+            io.to(player.black).emit("gameStatus", {
+              email: playerEmails[player.black],
+              status: winnerEmail === playerEmails[player.black] ? "win" : "lose",
+            });
+          }
+
+          console.log("Game over result:", result);
+          console.log("Winner email:", winnerEmail);
         }
       } else {
         console.log("Invalid move", msg);
@@ -141,7 +144,6 @@ io.on("connection", (socket) => {
     } catch (err) {
       console.log("Invalid move", msg);
       socket.emit("err", "Invalid move");
-      return;
     }
   });
 });

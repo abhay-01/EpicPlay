@@ -9,16 +9,12 @@ let sourceSquare = null;
 let playerRole = null;
 let gameOver = false; // Track if the game is over
 
-
 const renderBoard = () => {
     if (gameOver) {
         return;
     }
-        //comments
 
     const board = chess.board();
-   
-
     boardElement.innerHTML = "";
     board.forEach((row, i) => {
         row.forEach((square, j) => {
@@ -114,7 +110,6 @@ socket.on("gameOver", (result) => {
     console.log("Game Over", result);
     displayGameResult(result);
 });
-socket.on("registerEmail")
 
 socket.on("playerRole", (role) => {
     playerRole = role;
@@ -136,27 +131,30 @@ socket.on("move", (move) => {
     renderBoard();
 });
 
-
 const displayGameResult = (result) => {
-    // Display game result to the user
-    // const resultElement = document.createElement("div");
-    // resultElement.classList.add("game-result");
-    // resultElement.innerHTML = `
-    //     <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-white">
-    //         <h2 class="text-2xl font-bold mb-2">Game Over</h2>
-    //         <p class="text-lg">${result}</p>
-    //         <button class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="location.reload();">Play Again</button>
-    //     </div>
-    // `;
-    // document.body.appendChild(resultElement);
-
+    // Determine the winner (White or Black)
     const winner = result.includes("White") ? "white" : "black";
-    const playerResult = playerRole === winner ? "win" : "lose";
+    const playerResult = playerRole === winner ? "win" : "lose"; // Determine if the player won or lost
 
-    console.log(playerResult,winner);
+    // Display game result to the user
+    const resultElement = document.createElement("div");
+    resultElement.classList.add("game-result");
+    resultElement.innerHTML = `
+        <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-white fixed inset-0 flex items-center justify-center">
+            <div class="p-6 bg-gray-900 rounded-lg">
+                <h2 class="text-2xl font-bold mb-2">Game Over</h2>
+                <p class="text-lg">You ${playerResult === "win" ? "won" : "lost"} the game!</p>
+                <p class="text-lg">${result}</p>
+                <button class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="playAgain()">Play Again</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(resultElement);
+};
+
+const playAgain = () => {
     // Redirect to the matchmaking page with parameters
     window.location.href = `http://localhost:3000/matchmaking?result=${playerResult}`;
-
 };
 
 renderBoard();

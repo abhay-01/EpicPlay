@@ -74,7 +74,12 @@ io.on("connection", (socket) => {
   }
 
   socket.on("disconnect", () => {
-    console.log("Player disconnected:", socket.id, "Email:", playerEmails[socket.id]);
+    console.log(
+      "Player disconnected:",
+      socket.id,
+      "Email:",
+      playerEmails[socket.id]
+    );
     if (player.white === socket.id) {
       player.white = null;
     }
@@ -110,7 +115,10 @@ io.on("connection", (socket) => {
 
           if (chess.isCheckmate()) {
             result = "Checkmate";
-            winnerEmail = chess.turn() === "w" ? playerEmails[player.black] : playerEmails[player.white];
+            winnerEmail =
+              chess.turn() === "w"
+                ? playerEmails[player.black]
+                : playerEmails[player.white];
           } else if (chess.isStalemate()) {
             result = "Stalemate";
           } else if (chess.isThreefoldRepetition()) {
@@ -126,11 +134,13 @@ io.on("connection", (socket) => {
           if (winnerEmail) {
             io.to(player.white).emit("gameStatus", {
               email: playerEmails[player.white],
-              status: winnerEmail === playerEmails[player.white] ? "win" : "lose",
+              status:
+                winnerEmail === playerEmails[player.white] ? "win" : "lose",
             });
             io.to(player.black).emit("gameStatus", {
               email: playerEmails[player.black],
-              status: winnerEmail === playerEmails[player.black] ? "win" : "lose",
+              status:
+                winnerEmail === playerEmails[player.black] ? "win" : "lose",
             });
           }
 

@@ -29,10 +29,11 @@ const AllGames = () => {
     window.open("http://localhost:3000", "_blank");
   };
 
-
   const openGeography = () => {
-    window.open("https://geography-classes.netlify.app/", "_blank");
-  }
+    const email = "test@gmail.com";
+    const url = "https://geography-classes.netlify.app" + "?email=" + email;
+    window.open(url, "_blank");
+  };
 
   return (
     <div className="flex justify-center items-center h-screen w-screen ">
@@ -85,12 +86,10 @@ const AllGames = () => {
         </div>
       ))}
 
-      <div className="card" onClick={()=> openGeography()}>
+      <div className="card" onClick={() => openGeography()}>
         <div className="image">
-        <img src={group} alt="Group" />
-
-          </div>
-
+          <img src={group} alt="Group" />
+        </div>
       </div>
     </div>
   );

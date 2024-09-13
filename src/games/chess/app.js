@@ -148,11 +148,13 @@ io.on("connection", (socket) => {
           if (winnerEmail) {
             io.to(player.white).emit("gameStatus", {
               email: playerEmails[player.white],
-              status: winnerEmail === playerEmails[player.white] ? "win" : "lose",
+              status:
+                winnerEmail === playerEmails[player.white] ? "win" : "lose",
             });
             io.to(player.black).emit("gameStatus", {
               email: playerEmails[player.black],
-              status: winnerEmail === playerEmails[player.black] ? "win" : "lose",
+              status:
+                winnerEmail === playerEmails[player.black] ? "win" : "lose",
             });
           }
 

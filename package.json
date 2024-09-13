@@ -35,10 +35,9 @@
   },
   "scripts": {
     "dev": "nodemon src/games/ballzone/server/index.ts npm start --prefix src/games/geographyclass",
-    "start": "concurrently \"npm run start:react\" \"npm run start:node\" \"npm run start:react2\" ",
+    "start": "concurrently \"npm run start:react\" \"npm run start:node\"",
     "start:react": "react-scripts start",
     "start:node": "node src/games/chess/app.js ",
-    "start:react2": "react-scripts start --prefix src/games/geographyclass",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

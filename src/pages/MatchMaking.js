@@ -6,7 +6,9 @@ const socket = io("http://localhost:3005", {
   reconnection: true,
   reconnectionAttempts: 10,
   reconnectionDelay: 1000,
+  query: { email: "test2" } 
 });
+
 
 const Matchmaking = () => {
   const [friendEmail, setFriendEmail] = useState("test2");

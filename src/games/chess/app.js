@@ -19,6 +19,7 @@ const io = require("socket.io")(server, {
 
 const chess = new Chess();
 const cors = require("cors");
+const e = require("express");
 
 app.use(
   cors({
@@ -28,21 +29,13 @@ app.use(
 
 let player = {};
 let currentPlayer = "w";
-const playerEmails = {}; // Store emails by socket ID
-let Email = "";
+let playerEmails = {}; // Object to store each player's email based on socket ID
+
+
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 
-app.get("/", (req, res) => {
-  let email = req.query.email;
-  console.log("hello");
-  console.log("Email", email);
-  Email = email;
-  // Print all stored player emails
-  console.log("Current player emails:", playerEmails);
-  res.render("index", { title: "Chess Game" });
-});
 
 app.post("/start-chess-server", (req, res) => {
   exec("npx nodemon src/games/chess/app.js", (error, stdout, stderr) => {
@@ -58,30 +51,53 @@ app.post("/start-chess-server", (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("A user has connected", socket.id);
+  app.get("/", (req, res) => {
+    const email = req.query.email;
+    console.log("New player email:", email);
+    playerEmails[email] = email;
+  
+    // Print all stored player emails
+    console.log("Current player emails:", playerEmails);
+    res.render("index", { title: "Chess Game" });
+  });
+  
+  const email = socket.handshake.query.email;
+  playerEmails[socket.id] = socket.id;
 
-  playerEmails[socket.id] = Email; // Store emai+l by socket ID
-  console.log("Player connected:", socket.id, "Email:", Email);
+  console.log("STORED ONE---->", playerEmails);
+  
+ 
+
+  // playerEmails[socket.id] = email;
+
+  console.log("Player connected:", socket.id, "Email:", email);
   console.log("Current player emails:", playerEmails);
 
   if (!player.white) {
     player.white = socket.id;
     socket.emit("playerRole", "w");
+    // console.log("White player:", playerEmails[socket.id]);
   } else if (!player.black) {
     player.black = socket.id;
     socket.emit("playerRole", "b");
+    // console.log("Black player:", playerEmails[socket.id]);
   } else {
     socket.emit("spectatorRole");
   }
 
   socket.on("disconnect", () => {
-    console.log("Player disconnected:", socket.id, "Email:", playerEmails[socket.id]);
+    // console.log("Player disconnected:", socket.id, "Email:", playerEmails[socket.id]);
+
     if (player.white === socket.id) {
+      console.log("White player disconnected");
       player.white = null;
     }
     if (player.black === socket.id) {
+      console.log("Black player disconnected");
       player.black = null;
     }
-    delete playerEmails[socket.id]; // Clean up email storage
+
+    delete playerEmails[socket.id];
     console.log("Updated player emails:", playerEmails);
   });
 
@@ -104,6 +120,7 @@ io.on("connection", (socket) => {
         io.emit("move", msg);
         io.emit("boardState", chess.fen());
 
+
         if (chess.isGameOver()) {
           let result = "";
           let winnerEmail = "";
@@ -111,6 +128,11 @@ io.on("connection", (socket) => {
           if (chess.isCheckmate()) {
             result = "Checkmate";
             winnerEmail = chess.turn() === "w" ? playerEmails[player.black] : playerEmails[player.white];
+            if(chess.turn() === "w"){
+              console.log("Black player won the game",);
+            }else{
+              console.log("White player won the game");
+            }
           } else if (chess.isStalemate()) {
             result = "Stalemate";
           } else if (chess.isThreefoldRepetition()) {

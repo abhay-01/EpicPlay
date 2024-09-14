@@ -30,12 +30,22 @@ app.use(
 let player = {};
 let currentPlayer = "w";
 let playerEmails = {}; // Object to store each player's email based on socket ID
-
+let currentEmail = [];
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 
+app.get("/", (req, res) => {
+  const email = req.query.email;
+  console.log("New player email:", email);
+  playerEmails[email] = email;
+  currentEmail.push(email);
+
+  // Print all stored player emails
+  console.log("Current player emails:", playerEmails);
+  res.render("index", { title: "Chess Game" });
+});
 
 app.post("/start-chess-server", (req, res) => {
   exec("npx nodemon src/games/chess/app.js", (error, stdout, stderr) => {
@@ -51,35 +61,28 @@ app.post("/start-chess-server", (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("A user has connected", socket.id);
-  app.get("/", (req, res) => {
-    const email = req.query.email;
-    console.log("New player email:", email);
-    playerEmails[email] = email;
-  
-    // Print all stored player emails
-    console.log("Current player emails:", playerEmails);
-    res.render("index", { title: "Chess Game" });
-  });
-  
-  const email = socket.handshake.query.email;
-  playerEmails[socket.id] = socket.id;
 
-  console.log("STORED ONE---->", playerEmails);
-  
- 
+  // const email = socket.handshake.query.email;
+  // playerEmails[socket.id] = socket.id;
+
+  // console.log("STORED ONE---->", playerEmails);
 
   // playerEmails[socket.id] = email;
 
-  console.log("Player connected:", socket.id, "Email:", email);
+  // console.log("Player connected:", socket.id, "Email:", currentEmail[0]);
   console.log("Current player emails:", playerEmails);
 
   if (!player.white) {
     player.white = socket.id;
+    player.whiteEmail = currentEmail[0];
     socket.emit("playerRole", "w");
+    console.log(player);
     // console.log("White player:", playerEmails[socket.id]);
   } else if (!player.black) {
     player.black = socket.id;
+    player.blackEmail = currentEmail[1];
     socket.emit("playerRole", "b");
+    console.log(player);
     // console.log("Black player:", playerEmails[socket.id]);
   } else {
     socket.emit("spectatorRole");
@@ -89,11 +92,11 @@ io.on("connection", (socket) => {
     // console.log("Player disconnected:", socket.id, "Email:", playerEmails[socket.id]);
 
     if (player.white === socket.id) {
-      console.log("White player disconnected");
+      console.log("White player disconnected " + player.whiteEmail);
       player.white = null;
     }
     if (player.black === socket.id) {
-      console.log("Black player disconnected");
+      console.log("Black player disconnected " + player.blackEmail);
       player.black = null;
     }
 
@@ -120,17 +123,17 @@ io.on("connection", (socket) => {
         io.emit("move", msg);
         io.emit("boardState", chess.fen());
 
-
         if (chess.isGameOver()) {
           let result = "";
           let winnerEmail = "";
 
           if (chess.isCheckmate()) {
             result = "Checkmate";
-            winnerEmail = chess.turn() === "w" ? playerEmails[player.black] : playerEmails[player.white];
-            if(chess.turn() === "w"){
-              console.log("Black player won the game",);
-            }else{
+            winnerEmail =
+              chess.turn() === "w" ? player.blackEmail : player.whiteEmail;
+            if (chess.turn() === "w") {
+              console.log("Black player won the game");
+            } else {
               console.log("White player won the game");
             }
           } else if (chess.isStalemate()) {
@@ -147,14 +150,12 @@ io.on("connection", (socket) => {
 
           if (winnerEmail) {
             io.to(player.white).emit("gameStatus", {
-              email: playerEmails[player.white],
-              status:
-                winnerEmail === playerEmails[player.white] ? "win" : "lose",
+              email: player.whiteEmail,
+              status: winnerEmail === player.whiteEmail ? "win" : "lose",
             });
             io.to(player.black).emit("gameStatus", {
-              email: playerEmails[player.black],
-              status:
-                winnerEmail === playerEmails[player.black] ? "win" : "lose",
+              email: player.blackEmail,
+              status: winnerEmail === player.blackEmail ? "win" : "lose",
             });
           }
 

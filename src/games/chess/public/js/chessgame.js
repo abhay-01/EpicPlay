@@ -141,18 +141,21 @@ socket.on("move", (move) => {
 
 const displayGameResult = (result) => {
   // Display game result to the user
-  const resultElement = document.createElement("div");
-  resultElement.classList.add("game-result");
-  resultElement.innerHTML = `
-        <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-white fixed inset-0 flex items-center justify-center">
-            <div class="p-6 bg-gray-900 rounded-lg">
-                <h2 class="text-2xl font-bold mb-2">Game Over</h2>
-                <p class="text-lg">You ${result} the game!</p>
-                <button class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="playAgain()">Play Again</button>
-            </div>
-        </div>
-    `;
-  document.body.appendChild(resultElement);
+  // const resultElement = document.createElement("div");
+  // resultElement.classList.add("game-result");
+  // resultElement.innerHTML = `
+  //       <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-white fixed inset-0 flex items-center justify-center">
+  //           <div class="p-6 bg-gray-900 rounded-lg">
+  //               <h2 class="text-2xl font-bold mb-2">Game Over</h2>
+  //               <p class="text-lg">You ${result} the game!</p>
+  //               <button class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="playAgain()">Play Again</button>
+  //           </div>
+  //       </div>
+  //   `;
+  // document.body.appendChild(resultElement);
+  // Redirect to the matchmaking page with parameters
+
+  window.location.href = `http://localhost:3000/matchmaking`;
 };
 const playAgain = () => {
   // Redirect to the matchmaking page with parameters

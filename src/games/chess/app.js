@@ -42,7 +42,6 @@ app.get("/", (req, res) => {
   playerEmails[email] = email;
   currentEmail.push(email);
 
-  // Print all stored player emails
   console.log("Current player emails:", playerEmails);
   res.render("index", { title: "Chess Game" });
 });
@@ -133,8 +132,13 @@ io.on("connection", (socket) => {
               chess.turn() === "w" ? player.blackEmail : player.whiteEmail;
             if (chess.turn() === "w") {
               console.log("Black player won the game");
+              updateResults(player.blackEmail,"win");
+              updateResults(player.whiteEmail,"loss");
+
             } else {
               console.log("White player won the game");
+              updateResults(player.blackEmail,"loss");
+              updateResults(player.whiteEmail,"win");
             }
           } else if (chess.isStalemate()) {
             result = "Stalemate";
@@ -172,6 +176,28 @@ io.on("connection", (socket) => {
     }
   });
 });
+
+const updateResults =  async(email,status) => {
+  console.log("EMAIL JO AAYI HAI-->",email,status);
+
+  const updateStatus = await fetch("http://localhost:3005/finalResults", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+      result: status,
+    }),
+  });
+
+
+  if (updateStatus.ok) {
+    console.log("Status updated successfully");
+  } else {
+    console.error("Failed to update status");
+  }
+};
 
 server.listen(3001, () => {
   console.log("Server is running on port 3001");

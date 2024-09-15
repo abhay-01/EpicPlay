@@ -11,6 +11,8 @@ export default function EndMatchStats() {
     seconds,
   } = useContext(GameContext);
 
+  //useEffect me updateSoloResults wale route ko hit karna hai
+  //mujhee iss page see gamemate ke frontend pe redirect hona hai
   return (
     <>
       <figure className="endMatchStats">

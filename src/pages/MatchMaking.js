@@ -26,6 +26,9 @@ const Matchmaking = () => {
       }
     });
 
+
+    fetchResults();
+
   
 
     socket.on("registerEmail", (data) => {
@@ -93,6 +96,59 @@ const Matchmaking = () => {
     }
   };
 
+
+  const fetchResults = async () => {
+    let response = await fetch("http://localhost:3005/postResults",{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: myEmail,
+      }),
+    });
+
+
+    if(response.ok){
+        response = await response.json();
+
+    if(response[0].winner === myEmail){
+      setResult("win");
+      setShowResult(true);
+    }else{
+      setResult("lose");
+      setShowResult(true);
+    }
+  }
+    
+
+    console.log("RESPONSE AT MATCHMAKING-->",response.ok);
+  }
+
+
+  const handleStatus = async () => {
+    try {
+      const response = await fetch("http://localhost:3005/updateStatus", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email1: myEmail,
+          email2: friendEmail,
+        }),
+      });
+
+      if (response.ok) {
+        setShowResult(false);
+        console.log("Status updated successfully");
+      } else {
+        console.error("Failed to update status");
+      }
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  }
   return (
     <div
       style={{
@@ -141,7 +197,7 @@ const Matchmaking = () => {
             )}
             <button
               className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              onClick={() => setShowResult(false)}
+              onClick={() => handleStatus()}
             >
               Close
             </button>

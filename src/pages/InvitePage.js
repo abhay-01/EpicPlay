@@ -48,6 +48,25 @@ const InvitePage = () => {
               type: inviteType,
             })
           ) {
+
+            const createMatch = await fetch("http://localhost:3005/createMatch", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                player1: inviteSender,
+                player2: inviteTarget,
+                game: inviteType,
+              }),
+            });
+
+            if (createMatch.ok) {
+              console.log("Match created successfully");
+            } else {
+              console.error("Failed to create match");
+            }
+            
             console.log("EMITTED");
             const url = inviteUrl + `?email=${email}`;
             window.open(url, "_blank");
